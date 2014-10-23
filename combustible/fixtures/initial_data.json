@@ -1,0 +1,42 @@
+[
+{
+    "pk": 1, 
+    "model": "combustible.tipobien", 
+    "fields": {
+        "nombre": "Bienes", 
+        "sigla": "B"
+    }
+},
+{
+    "pk": 2, 
+    "model": "combustible.tipobien", 
+    "fields": {
+        "nombre": "Servicios", 
+        "sigla": "S"
+    }
+},
+{
+    "pk": 1, 
+    "model": "combustible.firmacargadatos", 
+    "fields": {
+        "nombreEntidad": "Proveedor", 
+        "huellaDigital": "123"
+    }
+},
+{
+    "pk": 2, 
+    "model": "combustible.firmacargadatos", 
+    "fields": {
+        "nombreEntidad": "Contrato", 
+        "huellaDigital": "123"
+    }
+},
+{
+    "pk": 3, 
+    "model": "combustible.firmacargadatos", 
+    "fields": {
+        "nombreEntidad": "Ejecutora", 
+        "huellaDigital": "123"
+    }
+}
+]

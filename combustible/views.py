@@ -56,7 +56,7 @@ def importarEjecutorasSiga():
 	validaHuella = validaHuellaDital(ejecutorasSiga)
 
 	if not validaHuella :
-		print "Carga ejecutoras"
+		# print "Carga ejecutoras"
 		try:
 			for ejecutoraSiga in ejecutorasSiga:
 				ejecutoraI = Ejecutora(secEjec = ejecutoraSiga.secEjec)
@@ -67,7 +67,7 @@ def importarEjecutorasSiga():
 				ejecutoraI.lugarNum = ejecutoraSiga.lugarNum
 				ejecutoraI.save()
 
-			respuesta["mensaje"] = "Unidades Ejecutoras SIGA cargadas correctamente"
+			respuesta["mensaje"] = "Unidades Ejecutoras SIGA importadas correctamente"
 			# Guardamos la huella digital de las ejecutoras
 			registraHuellaDigital(ejecutorasSiga)
 
@@ -95,7 +95,7 @@ def importarProveedoresSiga():
 				proveedorI.nombreProv = proveedorSiga.nombreProv
 				proveedorI.save()
 
-			respuesta["mensaje"] = "Proveedores SIGA cargados correctamente"
+			respuesta["mensaje"] = "Proveedores SIGA importados correctamente"
 
 			# Guardamos la huella digital de los proveedores
 			registraHuellaDigital(proveedoresSiga)
@@ -115,9 +115,10 @@ def importarContratosSiga(request):
 	respuesta = {
 		"estado": True,
 		"mensaje": "No hay nuevos Contratos SIGA"
+		"asdfasdf": "adfsadfdsaf"
+		
 	}
 
-	# validaHuella = False
 	validaHuella = validaHuellaDital(contratosSiga)
 	if not validaHuella:
 		try:
