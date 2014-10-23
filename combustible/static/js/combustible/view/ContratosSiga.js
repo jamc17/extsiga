@@ -79,10 +79,9 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                 },
                 items: [
                 {
-                    // baseCls: "buttonWarnning",
                     cls: "buttonWarnning",
                     focusCls: "buttonWarnning",
-                    text: "Importar maestros SIGA",
+                    text: "Importar maestros del SIGA",
                     handler: me.cargarMaestrosSiga
                 }, {
                     text: "Agregar"

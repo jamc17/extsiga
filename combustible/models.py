@@ -62,3 +62,13 @@ class TipoBien(models.Model):
 	def __unicode__(self):
 		return self.nombre
 
+
+class FirmaCargaDatos(models.Model):
+	nombreEntidad = models.CharField(max_length=50, null=True)
+	huellaDigital = models.CharField(max_length=50, null=True)
+
+	def __unicode__(self):
+		return self.nombreEntidad
+
+
+
