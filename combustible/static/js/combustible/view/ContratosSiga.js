@@ -12,9 +12,10 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
         }
     },
 
-    cargarContratosSiga: function (button, e) {
-        Ext.Msg.confirm("Confirmar", "Desea realizar la importación de contratos desde el SIGA", function (res) {
+    cargarMaestrosSiga: function (button, e) {
+        Ext.Msg.confirm("Confirmar", "Desea realizar la importación de datos maestros desde el SIGA", function (res) {
             if (res == "yes") {
+                
                 Ext.Ajax.request({
                     url: "/combustible/importarContratosSiga",
                     timeout: 180000,
@@ -48,7 +49,6 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                             });
                     }
                 });
-                // Ext.Msg.alert("Respuesta", "Contratos SIGA cargados correctamente");
             }
         });
     },
@@ -79,8 +79,11 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                 },
                 items: [
                 {
-                    text: "Importar desde SIGA",
-                    handler: me.cargarContratosSiga
+                    // baseCls: "buttonWarnning",
+                    cls: "buttonWarnning",
+                    focusCls: "buttonWarnning",
+                    text: "Importar maestros SIGA",
+                    handler: me.cargarMaestrosSiga
                 }, {
                     text: "Agregar"
                 }]

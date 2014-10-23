@@ -2,10 +2,11 @@ from django.db import models
 
 class Ejecutora(models.Model):
 	secEjec = models.CharField(max_length=50, db_column='sec_ejec', primary_key=True)
-	nombre = models.CharField(max_length=250, db_column='nombre')
-	ruc = models.CharField(max_length=11, db_column='ruc_ejec')
-	lugar = models.CharField(max_length=250, db_column='lugar')
-	lugarNum = models.CharField(max_length=4, db_column='lugar_num')
+	nombre = models.CharField(max_length=250, null=True, db_column='nombre')
+	ruc = models.CharField(max_length=11, null=True, db_column='ruc_ejec')
+	localidad = models.CharField(max_length=70, null=True, db_column='localidad')
+	lugar = models.CharField(max_length=250, null=True, db_column='lugar')
+	lugarNum = models.CharField(max_length=15, null=True, db_column='lugar_num')
 
 	def __unicode__(self):
 		return self.nombre

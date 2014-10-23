@@ -5,7 +5,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Contrato, Proveedor, TipoBien
+from .models import Contrato, Proveedor, TipoBien, Ejecutora
 
 
 def filtrosContratosSiga(request):
@@ -23,6 +23,29 @@ def listContratosSiga(request):
 	contratos = Contrato.objects.all()
 
 	return render(request, "combustible/listContratosSiga.html", locals())
+
+def importarEjecutorasSiga():
+	ejecutorasSiga = Ejecutora.objects.using("remote").all()
+
+	respuesta = {}
+	try:
+		for ejecutoraSiga in ejecutorasSiga:
+			ejecutoraI = Ejecutora(secEjec = ejecutoraSiga.secEjec)
+			ejecutoraI.nombre = ejecutoraSiga.nombre
+			ejecutoraI.ruc = ejecutoraSiga.ruc
+			ejecutoraI.localidad = ejecutoraSiga.localidad
+			ejecutoraI.lugar = ejecutoraSiga.lugar
+			ejecutoraI.lugarNum = ejecutoraSiga.lugarNum
+			ejecutoraI.save()
+
+		respuesta["estado"] = True
+		respuesta["mensaje"] = "Unidades ejecutoras cargadas correctamente"
+
+	except:
+		respuesta["estado"] = False
+		respuesta["mensaje"] = "Error en la carga de unidades ejecutoras"
+
+	return respuesta
 
 
 def importarProveedoresSiga():
@@ -42,12 +65,13 @@ def importarProveedoresSiga():
 		respuesta["estado"] = False
 		respuesta["mensaje"] = "Error durante la carga de proveedores"
 	
-	return HttpResponse("Proveedores importados correctamente")
+	return respuesta
 
 
 def importarContratosSiga(request):
 	contratosSiga = Contrato.objects.using("remote").all()
 
+	importarEjecutorasSiga()
 	importarProveedoresSiga()
 
 	respuesta = {}

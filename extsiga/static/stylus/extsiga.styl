@@ -4,6 +4,16 @@ gris_claro = #fafafa
 gris_oscuro = #cecece
 gris_mas_oscuro = #444
 
+// Defautls Colors
+primary_color = #008CBA   // bondi_blue
+secondary_color = #e7e7e7 // white_lilac
+alert_color = #f04124     // cinnabar
+success_color = #43AC6A   // sea_green
+warning_color = #f08a24   // carrot
+warning_color_hover = #f07924
+warning_color_border = #e06802
+info_color = #a0d3e8      // cornflower
+
 celeste = #157fcc
 
 figure
@@ -15,6 +25,18 @@ form
 	input
 	select
 		color gris_mas_oscuro
+
+
+.buttonWarnning
+	background warning_color
+	border-color warning_color_border
+	&:hover
+		background warning_color_hover
+		border-color warning_color_border
+	&:visited
+		background warning_color
+		border-color warning_color_border
+		
 
 .centerText
 	text-align center

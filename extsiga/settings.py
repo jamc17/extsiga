@@ -80,25 +80,26 @@ DATABASES = {
         'PASSWORD': 'siga',
         'HOST': '127.0.0.1',
     },
-        'remote': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
 
-   # 'remote': {
-   #     'ENGINE': "django_pyodbc",
-   #     'HOST': "10.10.10.31,1433",
-   #     'USER': "siga",
-   #     'PASSWORD': "siga",
-   #     'NAME': "SIGA_DEMO",
-   #     'OPTIONS': {
-   #         'host_is_server': True,
-   #         'dsn': "siga",
-   #         'autocommit': True,
-   #         "unicode_results": True,
-   #         # 'encoding': "LATIN1"
-   #     }
-   # }
+    # 'remote': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+
+   'remote': {
+       'ENGINE': "django_pyodbc",
+       'HOST': "10.10.10.31,1433",
+       'USER': "siga",
+       'PASSWORD': "siga",
+       'NAME': "SIGA_DEMO",
+       'OPTIONS': {
+           'host_is_server': True,
+           'dsn': "siga",
+           'autocommit': True,
+           "unicode_results": True,
+           # 'encoding': "LATIN1"
+       }
+   }
 }
 
 # Internationalization
