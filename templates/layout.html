@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>
+	{% block title %}
+	ExtSiga - Gobierno Regional Cajamarca
+	{% endblock title %}
+	</title>
+	<meta name="description" content="Extensiones Siga MEF GRC" />
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'ext/build/packages/ext-theme-crisp/build/resources/ext-theme-crisp-all.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/extsiga.css' %}" />
+</head>
+<body>
+	{% block content %}
+		ExtSIGA GRC
+	{% endblock content %}
+
+	
+	<script type="text/javascript" src="{% static 'ext/build/ext-all.js' %}"></script>
+	<script type="text/javascript">
+		Ext.Loader.setConfig({
+			enabled: true,
+			paths: {
+				Ext: 		"{% static 'ext/src' %}",
+				ExtSiga: 	"{% static 'js' %}"
+			}
+		})
+	</script>
+	<script type="text/javascript" src="{% static 'js/extsiga.js' %}"></script>
+</body>
+</html>

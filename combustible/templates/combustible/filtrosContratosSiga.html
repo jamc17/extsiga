@@ -1,0 +1,23 @@
+<form action="">
+	<label for="year">Año
+		<select name="year" id="year">
+			{% for year in years %}
+				<option value="{{year}}">{{year}}</option>
+			{% endfor %}
+		</select>
+	</label>
+
+	<label for="tipoBien">Tipo Bien
+		<select name="tipoBien" id="tipoBien">
+			{% for tipoBien in tiposBien %}
+				<option value="{{tipoBien.pk}}">{{tipoBien}}</option>
+			{% endfor %}
+		</select>
+	</label>
+	
+	<label for="proveedor"> Proveedor
+		<input type="text" id="proveedor" />	
+	</label>
+	
+	<input type="submit" value="Buscar" />
+</form>

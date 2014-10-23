@@ -1,0 +1,88 @@
+@import 'normalize'
+
+gris_claro = #fafafa
+gris_oscuro = #cecece
+gris_mas_oscuro = #444
+
+celeste = #157fcc
+
+figure
+	margin 0
+	padding 0
+
+form
+	padding 1em
+	input
+	select
+		color gris_mas_oscuro
+
+.centerText
+	text-align center
+
+.footer
+	height 50px
+	background gris_claro
+	p
+		color gris_mas_oscuro
+		margin 0
+		padding 0
+		padding-top .5em
+
+
+
+.header
+	background gris_claro
+	overflow hidden
+	height 80px
+	.logo
+		float left
+		margin 0 1em
+		figure
+			float left
+		h1
+			color gris_mas_oscuro
+			font-size 1.5rem
+			margin 0
+			padding 1.5rem 0 0 3rem
+
+#home
+	padding 2em
+	p
+		font-size 1.6em
+		line-height 1.6em
+		margin 0
+		padding 0
+
+
+.menu
+	overflow hidden
+	list-style none
+	margin 0
+	padding 0
+	li
+		float left
+		border-left 1px solid gris_oscuro
+		padding 0 .2em
+		a
+			// font-size 1.2em
+			color celeste
+			text-decoration none
+			display inline-block
+			padding .2em .8em
+			border-bottom 3px solid transparent
+			&:hover
+				border-bottom 3px solid gris_oscuro
+
+
+// Para cambiar los links del tree y hacerlos igual a los que tienen y no hyperlink
+.x-grid-body
+	a
+		color black
+		text-decoration none
+
+			
+.wrapperMenu
+	float right
+	margin-top 1.4em
+	margin-right 2em
+
