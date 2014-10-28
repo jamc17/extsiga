@@ -67,7 +67,7 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
             }
         });
 
-        this.gridContratos = Ext.create("Ext.panel.Panel", {
+        this.gridContratos = Ext.create("Ext.grid.Panel", {
             title: "Contratos SIGA",
             region: "center",
             header: {
@@ -87,13 +87,40 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                     text: "Agregar"
                 }]
             },
-            loader: {
-                url: "combustible/listContratosSiga",
-                autoLoad: true
+            store: Ext.create("ExtSiga.combustible.store.Contratos"),
+            columns: [
+                {xtype: 'rownumberer', width: 40},
+                {text: "Proveedor", dataIndex: "proveedor", flex: 6},
+                {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 2},
+            ],
+            listeners: {
+                rowdblclick: {
+                    fn: me.getDetalleContratoSiga,
+                    scope: me
+                }
             }
         });
+        
+        this.panelDetalleContrato = Ext.create("Ext.Component", {
+            region: "north",
+            split: true,
+            loader: {
+                url: "combustible/getDetalleContratoSiga",
+                autoLoad: true
+            },
+        });
+        
     },
 
+    getDetalleContratoSiga: function (table, record) {
+        var idContrato = record.get("secContrato");
+
+        this.panelDetalleContrato.getLoader().load(
+            {
+                params: {secContrato: idContrato},
+                method: "GET"
+            });
+    },
 
     renderizate: function (config) {
         var me = this;
@@ -137,15 +164,11 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                             style: {
                                 backgroundColor: "white",
                                 borderColor: "#ccc",
-                                borderStyle: "solid"
+                                borderStyle: "solid",
                             }
 
                         },
-                        items: [{
-                            region: "north",
-                            split: true,
-                            html: "detalle contrato"
-                        }, {
+                        items: [me.panelDetalleContrato, {
                             region: "center",
                             html: "Listado contratos seleccionados"
                         }]
@@ -154,10 +177,12 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
         } else {
             this.reloadPanels();
         }
+        
     },
 
     reloadPanels: function () {
         this.filtros.getLoader().load();
-        this.gridContratos.getLoader().load();
+        this.gridContratos.store.load();
+        this.panelDetalleContrato.getLoader().load();
     }
 });

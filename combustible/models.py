@@ -1,7 +1,7 @@
 from django.db import models
 
 class Ejecutora(models.Model):
-	secEjec = models.CharField(max_length=50, db_column='sec_ejec', primary_key=True)
+	secEjec = models.IntegerField(db_column='sec_ejec', primary_key=True)
 	nombre = models.CharField(max_length=250, null=True, db_column='nombre')
 	ruc = models.CharField(max_length=11, null=True, db_column='ruc_ejec')
 	localidad = models.CharField(max_length=70, null=True, db_column='localidad')
@@ -41,7 +41,7 @@ class Proveedor(models.Model):
 class Contrato(models.Model):
 	secContrato = models.CharField(max_length=50, db_column='SEC_CONTRATO', primary_key=True)
 	anoEje = models.CharField(max_length=4, null=True, db_column='ANO_EJE')
-	secEjec = models.CharField(max_length=8, null=True, db_column='SEC_EJEC')
+	secEjec = models.IntegerField(null=True, db_column='SEC_EJEC')
 	tipoBien = models.CharField(max_length=1, null=True, db_column='TIPO_BIEN')
 	nroDocumento = models.CharField(max_length=20, null=True, db_column='NRO_DOCUMENTO')
 	proveedor = models.ForeignKey(Proveedor, null=True, db_column='PROVEEDOR')

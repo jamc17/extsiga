@@ -1,0 +1,22 @@
+<div class="componentContent">
+	{% if contrato %}
+		<h2>Detalle Contrato</h2>
+		<ul>
+			<li>
+				<div>Año</div>
+				<div>{{contrato.anoEje}}</div>
+
+				<div>Nro Contrato</div>
+				<div>{{contrato.nroDocumento}}</div>
+
+				<div>Proveedor</div>
+				<div>{{contrato.proveedor.nombreProv}}</div>
+
+				<div>Espec. Técnicas</div>
+				<div>{{contrato.especTecnicas}}</div>
+			</li>
+		</ul>
+	{% else %}
+		<h2>Seleccione un contrato de la lista</h2>
+	{% endif %}
+</div>

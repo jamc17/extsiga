@@ -10,23 +10,6 @@ from django.core import serializers
 from .models import Contrato, Proveedor, TipoBien, Ejecutora, FirmaCargaDatos
 
 
-def filtrosContratosSiga(request):
-	thisYear = datetime.today().year
-	years = range(thisYear - 15, thisYear + 1)
-	year = years.sort(reverse= True)
-
-	tiposBien = TipoBien.objects.all().order_by("nombre")
-	
-
-	return render(request, "combustible/filtrosContratosSiga.html", locals())
-
-def listContratosSiga(request):
-	# contratos = Contrato.objects.using("remote").all()
-	contratos = Contrato.objects.all()
-
-	return render(request, "combustible/listContratosSiga.html", locals())
-
-
 def registraHuellaDigital(querySet):
 	data = serializers.serialize("json", querySet)
 	huellaDigital = hashlib.sha1(data).hexdigest()
@@ -44,6 +27,7 @@ def validaHuellaDital(querySet):
 	huellaDigitalActual = getHuellaDital(querySet)
 	huellaDigitalUltima = FirmaCargaDatos.objects.get(nombreEntidad = querySet.model.__name__)
 	return huellaDigitalActual == huellaDigitalUltima.huellaDigital
+
 
 def importarEjecutorasSiga():
 	ejecutorasSiga = Ejecutora.objects.using("remote").all()
@@ -115,8 +99,6 @@ def importarContratosSiga(request):
 	respuesta = {
 		"estado": True,
 		"mensaje": "No hay nuevos Contratos SIGA"
-		"asdfasdf": "adfsadfdsaf"
-		
 	}
 
 	validaHuella = validaHuellaDital(contratosSiga)
@@ -157,6 +139,57 @@ def defineProveedoresContratos(request):
 		contrato.save(using = 'remote')
 
 	return HttpResponse("Proveedores configurados correctamente")
+
+
+def getEjecutoras(request):
+	ejecutoras = list(Ejecutora.objects.all().order_by("secEjec").values())
+	
+	ejecutorasJson = {
+		"data": ejecutoras,
+		"success": True
+	}
+	
+	return HttpResponse(json.dumps(ejecutorasJson), "application/json");
+
+def getDetalleEjecutora(request):
+	secEjec = request.GET.get("secEjec")
+	if secEjec:
+		ejecutora = Ejecutora.objects.get(pk = secEjec)
+	return render(request, "combustible/detalleEjecutora.html", locals())
+
+def filtrosContratosSiga(request):
+	thisYear = datetime.today().year
+	years = range(thisYear - 15, thisYear + 1)
+	year = years.sort(reverse= True)
+
+	tiposBien = TipoBien.objects.all().order_by("nombre")
+	
+
+	return render(request, "combustible/filtrosContratosSiga.html", locals())
+
+
+def getContratosSiga(request):
+	# contratos = Contrato.objects.all()
+	contratos = list(Contrato.objects.all().order_by("secContrato").values())
+	contratosJson = {
+		"data": contratos,
+		"success": True
+	}
+
+	return HttpResponse(json.dumps(contratosJson), "application/json")
+
+
+def getDetalleContratoSiga(request):
+	secContrato = request.GET.get("secContrato")
+	if secContrato:
+		contrato = Contrato.objects.get(pk = secContrato)
+
+	return render(request, "combustible/detalleContrato.html", locals())
+
+
+
+
+
 
 
 
