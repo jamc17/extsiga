@@ -1,5 +1,14 @@
-<ul>
-{% for contrato in contratos %}
-	<li>{{contrato.secContrato}} - {{contrato.especTecnicas}} - {{contrato.proveedor}}</li>
-{% endfor %}
-</ul>
+{
+	success: "True",
+	data: [
+		{% for contrato in contratos %}
+		{
+			"secContrato": "{{contrato.secContrato}}",
+			"tipoBien": "{{contrato.tipoBien}}",
+			"nroDocumento": "{{contrato.nroDocumento|upper}}",
+			"proveedor": "{{contrato.proveedor.nombreProv|upper}}",
+		},
+		{% endfor %}
+	],
+	total: {{contratos.count}}
+}

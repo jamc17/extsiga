@@ -1,22 +1,49 @@
 <div class="componentContent">
 	{% if contrato %}
-		<h2>Detalle Contrato</h2>
-		<ul>
-			<li>
-				<div>Año</div>
-				<div>{{contrato.anoEje}}</div>
+		<h4>Contrato: {{contrato.nroDocumento}}</h4>
 
-				<div>Nro Contrato</div>
-				<div>{{contrato.nroDocumento}}</div>
+		<div class="row list">
+			<div class="small-3 columns">Proveedor</div>
+			<div class="small-9 columns"><strong>{{contrato.proveedor.nombreProv}}</strong></div>
+		</div>
 
-				<div>Proveedor</div>
-				<div>{{contrato.proveedor.nombreProv}}</div>
+		<div class="row list">
+			<div class="small-3 columns">Año:</div>
+			<div class="small-9 columns">{{contrato.anoEje}}</div>
+		</div>
 
-				<div>Espec. Técnicas</div>
-				<div>{{contrato.especTecnicas}}</div>
-			</li>
-		</ul>
+		<div class="row list">
+			<div class="small-3 columns">Fec Inicio:</div>
+			<div class="small-3 columns">{{contrato.fechaInicial}}</strong></div>
+
+			<div class="small-2 columns">Fec Fin:</div>
+			<div class="small-4 columns">{{contrato.fechaFinal}}</strong></div>
+		</div>
+
+		<div class="row list">
+			<div class="small-3 columns">Monto:</div>
+			<div class="small-9 columns"><strong>{{contrato.moneda}} {{contrato.valorMoneda}}</strong></div>
+		</div>
+
+		<div class="row list">
+			<div class="small-3 columns">Proceso:</div>
+			<div class="small-2 columns">{{contrato.nroProceso}}-{{contrato.anoProceso}}</strong></div>
+
+			<div class="small-3 columns">Id Proc: {{contrato.idProceso}}</div>
+			<div class="small-4 columns">Id Contrato: {{contrato.idContrato}}</strong></div>
+		</div>
+
+		<div class="row list">
+			<div class="small-3 columns">PAO:</div>
+			<div class="small-9 columns">{{contrato.nroConsolidado}}</div>
+		</div>
+
+		<div class="row list">
+			<div class="small-3 columns">Espec. Técnicas:</div>
+			<div class="small-9 columns">{{contrato.especTecnicas|lower|capfirst}}</div>
+		</div>
+
 	{% else %}
-		<h2>Seleccione un contrato de la lista</h2>
+		<h4>Seleccione un contrato de la lista</h4>
 	{% endif %}
 </div>

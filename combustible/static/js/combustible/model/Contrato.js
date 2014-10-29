@@ -9,8 +9,9 @@ Ext.define("ExtSiga.combustible.model.Contrato", {
 		{name: "secEjec", type: "string"},
 		{name: "tipoBien", type: "string"},
 		{name: "nroDocumento", type: "string"},
-		{name: "proveedor", type: "int", mapping:"proveedor_id"},
-		{name: "glosa", type: "string"},
-		{name: "especTecnicas", type: "string"},
-	]
+		// {name: "glosa", type: "string"},
+		// {name: "especTecnicas", type: "string"},
+		{name: "proveedor", type: "string"},
+	],
+
 });

@@ -1,11 +1,12 @@
-@import 'normalize'
-
 gris_claro = #fafafa
 gris_oscuro = #cecece
 gris_mas_oscuro = #444
 
 // Defautls Colors
 primary_color = #008CBA   // bondi_blue
+
+default_button_color = #3892d3
+default_button_border_color = #157fcc
 secondary_color = #e7e7e7 // white_lilac
 alert_color = #f04124     // cinnabar
 success_color = #43AC6A   // sea_green
@@ -21,11 +22,38 @@ figure
 	padding 0
 
 form
-	padding 1em
+	padding .3em 0
 	input
 	select
 		color gris_mas_oscuro
+		
+input[type="file"]
+input[type="checkbox"]
+input[type="radio"]
+input[type="text"]
+select
+	margin: 0 0 0 0;
+	
+label
+	font-size .9em
+select
+input[type="text"]
+	font-size .8rem
+	height 1.6rem
+	padding .2rem .5rem
+	
 
+
+.button
+	// background default_button_color
+	// border 1px solid default_button_border_color
+	// color gris_claro
+	// display inline-block
+	margin 0
+	padding .3em .8em
+	font-size 1em
+	// text-align center
+	border-radius 3px
 
 .buttonWarnning
 	background warning_color
@@ -55,8 +83,16 @@ form
 		margin 0
 		padding 0
 		padding-top .5em
+		font-size 1em
 
 
+.gridMayusculas
+	.x-grid-row
+		font-size .85em
+	
+	.button
+		font-size .75rem
+		color gris_claro
 
 .header
 	background gris_claro
@@ -81,18 +117,20 @@ form
 		margin 0
 		padding 0
 
+.list
+	margin-bottom .5em
 
 .menu
 	overflow hidden
 	list-style none
 	margin 0
 	padding 0
+	font-size 1em
 	li
 		float left
 		border-left 1px solid gris_oscuro
 		padding 0 .2em
 		a
-			// font-size 1.2em
 			color celeste
 			text-decoration none
 			display inline-block

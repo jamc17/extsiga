@@ -103,25 +103,35 @@ def importarContratosSiga(request):
 
 	validaHuella = validaHuellaDital(contratosSiga)
 	if not validaHuella:
-		try:
-			for contratoSiga in contratosSiga:
-				contratoI = Contrato(secContrato = contratoSiga.secContrato)
-				contratoI.anoEje = contratoSiga.anoEje
-				contratoI.secEjec = contratoSiga.secEjec
-				contratoI.tipoBien = contratoSiga.tipoBien
-				contratoI.nroDocumento = contratoSiga.nroDocumento
-				contratoI.proveedor = Proveedor.objects.get(pk = contratoSiga.proveedor.pk)
-				contratoI.glosa = contratoSiga.glosa
-				contratoI.especTecnicas = contratoSiga.especTecnicas
-				contratoI.save()
+		# try:
+		for contratoSiga in contratosSiga:
+			contratoI = Contrato(secContrato = contratoSiga.secContrato)
+			contratoI.anoEje = contratoSiga.anoEje
+			contratoI.secEjec = contratoSiga.secEjec
+			contratoI.tipoBien = contratoSiga.tipoBien
+			contratoI.nroDocumento = contratoSiga.nroDocumento
+			contratoI.proveedor = Proveedor.objects.get(pk = contratoSiga.proveedor.pk)
+			contratoI.especTecnicas = contratoSiga.especTecnicas
+			contratoI.fechaContrato = contratoSiga.fechaContrato
+			contratoI.fechaInicial = contratoSiga.fechaInicial
+			contratoI.fechaFinal = contratoSiga.fechaFinal
+			contratoI.idProceso = contratoSiga.idProceso
+			contratoI.idContrato = contratoSiga.idContrato
+			contratoI.moneda = contratoSiga.moneda
+			contratoI.valorMoneda = contratoSiga.valorMoneda
+			contratoI.nroConsolidado = contratoSiga.nroConsolidado
+			contratoI.anoProceso = contratoSiga.anoProceso
+			contratoI.nroProceso = contratoSiga.nroProceso
 
-			respuesta["mensaje"] = "Contratos SIGA Importados correctamente !!!"
+			contratoI.save()
 
-			registraHuellaDigital(contratosSiga)
+		respuesta["mensaje"] = "Contratos SIGA Importados correctamente !!!"
 
-		except:
-			respuesta["estado"] = False	
-			respuesta["mensaje"] = "Error, Error al importar los contratos SIGA"
+		registraHuellaDigital(contratosSiga)
+
+		# except:
+		# 	respuesta["estado"] = False	
+		# 	respuesta["mensaje"] = "Error, Error al importar los contratos SIGA"
 		
 	respuesta["mensaje"] += "<br />" + resEjec["mensaje"] + "<br />" + resProv["mensaje"]
 
@@ -169,14 +179,16 @@ def filtrosContratosSiga(request):
 
 
 def getContratosSiga(request):
-	# contratos = Contrato.objects.all()
-	contratos = list(Contrato.objects.all().order_by("secContrato").values())
-	contratosJson = {
-		"data": contratos,
-		"success": True
-	}
+	# contratos = list(Contrato.objects.all().order_by("secContrato").values())
+	# contratosJson = {
+	# 	"data": contratos,
+	# 	"success": True
+	# }
 
-	return HttpResponse(json.dumps(contratosJson), "application/json")
+	# return HttpResponse(json.dumps(contratosJson), "application/json")
+	contratos = Contrato.objects.all()
+	return render(request, "combustible/listContratosSiga.html", locals());
+
 
 
 def getDetalleContratoSiga(request):

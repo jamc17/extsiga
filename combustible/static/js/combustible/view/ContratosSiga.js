@@ -83,16 +83,19 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                     focusCls: "buttonWarnning",
                     text: "Importar maestros del SIGA",
                     handler: me.cargarMaestrosSiga
-                }, {
-                    text: "Agregar"
                 }]
             },
             store: Ext.create("ExtSiga.combustible.store.Contratos"),
             columns: [
                 {xtype: 'rownumberer', width: 40},
+                {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 3},
                 {text: "Proveedor", dataIndex: "proveedor", flex: 6},
-                {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 2},
+                {text: "Acciones", renderer: function (value, metaData, record) {
+                    metaData.style = "text-align: center";
+                    return "<a href='#' class='button'>Agregar</a>";
+                }}
             ],
+            bodyCls: "gridMayusculas",
             listeners: {
                 rowdblclick: {
                     fn: me.getDetalleContratoSiga,
