@@ -1,4 +1,4 @@
-<form action="">
+<form action="" id="formFiltrosContratosSiga">
 	<div class="row">
 		<div class="small-2 columns">
 			<label for="year">Año
@@ -15,20 +15,16 @@
 			<label for="tipoBien">Tipo Bien
 				<select name="tipoBien" id="tipoBien">
 					{% for tipoBien in tiposBien %}
-						<option value="{{tipoBien.pk}}">{{tipoBien}}</option>
+						<option value="{{tipoBien.sigla}}">{{tipoBien}}</option>
 					{% endfor %}
 				</select>
 			</label>
 		</div>
 		
-		<div class="small-6 columns">
+		<div class="small-8 columns">
 			<label for="proveedor"> Proveedor
 				<input type="text" id="proveedor" />
 			</label>
-		</div>
-		<div class="small-2 columns">
-			<br />
-			<input type="submit" value="Buscar" class="button" />
 		</div>
 	</div>
 	

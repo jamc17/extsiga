@@ -169,8 +169,8 @@ def getDetalleEjecutora(request):
 
 def filtrosContratosSiga(request):
 	thisYear = datetime.today().year
-	years = range(thisYear - 15, thisYear + 1)
-	year = years.sort(reverse= True)
+	years = range(thisYear - 10, thisYear + 1)
+	years.sort(reverse= True)
 
 	tiposBien = TipoBien.objects.all().order_by("nombre")
 	
@@ -179,7 +179,17 @@ def filtrosContratosSiga(request):
 
 
 def getContratosSiga(request):
-	contratos = Contrato.objects.filter(estado = 0).order_by("secContrato")
+	year = request.GET.get("anoEje")
+	tipoBien = request.GET.get("tipoBien")
+	
+	if not year:
+		year = datetime.today().year
+
+	if not tipoBien:
+		tipoBien = TipoBien.objects.all().order_by("nombre")[0].sigla
+
+	contratos = Contrato.objects.filter(estado = 0, anoEje = year, tipoBien = tipoBien).order_by("secContrato")
+
 	return render(request, "combustible/listContratosSiga.html", locals());
 
 

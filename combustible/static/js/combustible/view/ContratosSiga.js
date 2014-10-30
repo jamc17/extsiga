@@ -63,12 +63,21 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
             height: 60,
             loader: {
                 url: "combustible/filtrosContratosSiga",
-                autoLoad: true
+                autoLoad: true,
+                callback: function () {
+                    // Configuramos los listeners
+                    var listas = Ext.select("#formFiltrosContratosSiga select");
+                    listas.each(function (lista) {
+                        Ext.get(lista).on("change", me.filtrarContrtosSiga, me);
+                    });
+                }
             },
             style: {
                 backgroundColor: "white"
             }
         });
+
+        storeContratos = Ext.create("ExtSiga.combustible.store.Contratos");
 
         this.gridContratos = Ext.create("Ext.grid.Panel", {
             title: "Contratos SIGA",
@@ -90,7 +99,7 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                     }
                 }]
             },
-            store: Ext.create("ExtSiga.combustible.store.Contratos"),
+            store: storeContratos,
             columns: [
                 {xtype: 'rownumberer', width: 40},
                 {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 3},
@@ -345,8 +354,20 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
         }
     },
 
+    filtrarContrtosSiga: function () {
+        me = this;
+        var formFilters = Ext.get("formFiltrosContratosSiga");
+        var storeContratos = me.gridContratos.getStore();
+        storeContratos.getProxy().setExtraParams(
+            {tipoBien: Ext.get("tipoBien").getValue(), anoEje: Ext.get("year").getValue()}
+        );
+        // console.log(Ext.get("tipoBien").getValue(), Ext.get("year").getValue());
+        storeContratos.load();
+    },
+
     reloadPanels: function () {
         this.filtros.getLoader().load();
+        this.gridContratos.getStore().getProxy().setExtraParams({});
         this.gridContratos.store.load();
         this.gridContratosSel.store.load();
         this.panelDetalleContrato.getLoader().load();
