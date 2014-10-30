@@ -64,6 +64,7 @@ class Contrato(models.Model):
 	nroConsolidado = models.IntegerField(null=True, db_column='NRO_CONSOLID')
 	anoProceso = models.IntegerField(null=True, db_column='ANO_PROCESO')
 	nroProceso = models.IntegerField(null=True, db_column='NRO_PROCESO')
+	estado = models.SmallIntegerField(default = 0)
 	
 	def __unicode__(self):
 		return self.secContrato

@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     url(r'^defineProveedoresContratos$', views.defineProveedoresContratos, name='defineProveedoresContratos'),
     url(r'^getEjecutoras$', views.getEjecutoras, name='getEjecutoras'),
     url(r'^getDetalleEjecutora$', views.getDetalleEjecutora, name='getDetalleEjecutora'),
-    
+    url(r'^guardarContratosCombustible$', views.guardarContratosCombustible, name='guardarContratosCombustible'),
     
 )

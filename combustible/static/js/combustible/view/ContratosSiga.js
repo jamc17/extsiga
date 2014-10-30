@@ -12,7 +12,7 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
         }
     },
 
-    cargarMaestrosSiga: function (button, e) {
+    cargarMaestrosSiga: function (meObj) {
         Ext.Msg.confirm("Confirmar", "Desea realizar la importación de datos maestros desde el SIGA", function (res) {
             if (res == "yes") {
                 
@@ -28,6 +28,9 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                                 buttons: Ext.MessageBox.OK,
                                 icon: Ext.MessageBox.INFO
                             });
+
+                            //Actializamos el store de contratos siga
+                            meObj.gridContratos.getStore().load();
                         }
                         else {
                             Ext.Msg.show({
@@ -82,7 +85,9 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                     cls: "buttonWarnning",
                     focusCls: "buttonWarnning",
                     text: "Importar maestros del SIGA",
-                    handler: me.cargarMaestrosSiga
+                    handler: function () {
+                        me.cargarMaestrosSiga(me);
+                    }
                 }]
             },
             store: Ext.create("ExtSiga.combustible.store.Contratos"),
@@ -90,10 +95,19 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                 {xtype: 'rownumberer', width: 40},
                 {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 3},
                 {text: "Proveedor", dataIndex: "proveedor", flex: 6},
-                {text: "Acciones", renderer: function (value, metaData, record) {
-                    metaData.style = "text-align: center";
-                    return "<a href='#' class='button'>Agregar</a>";
-                }}
+                {
+                    xtype: "actioncolumn",
+                    items: [
+                    {
+                        xtype: "button",
+                        tooltip: "Agregar",
+                        icon: "static/img/add-icon-small.png",
+                        handler: function (grid, rowIndex) {
+                            me.selecContrato(grid, rowIndex)
+                        }
+                        
+                    }]
+                }
             ],
             bodyCls: "gridMayusculas",
             listeners: {
@@ -112,17 +126,70 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                 autoLoad: true
             },
         });
+
+
+        storeContratosLocal = Ext.create("ExtSiga.combustible.store.Contratos");
+        storeContratosLocal.setProxy({
+            type: "localstorage",
+            id: "extsiga"
+        });
         
-    },
+        // me.gridContratos.getStore().onAfter("load", function (store) {
+        //     contratosSel = storeContratosLocal.getData().items;
+            
+        //     store.remove(contratosSel);
+        // });
 
-    getDetalleContratoSiga: function (table, record) {
-        var idContrato = record.get("secContrato");
-
-        this.panelDetalleContrato.getLoader().load(
-            {
-                params: {secContrato: idContrato},
-                method: "GET"
-            });
+        this.gridContratosSel = Ext.create("Ext.grid.Panel", {
+            title: "Contratos Seleccionados",
+            region: "center",
+            header: {
+                defaults: {
+                    xtype: "button",
+                    style: {
+                        marginRight: "5px"
+                    }
+                },
+                
+                items: [
+                {
+                    text: "Limpiar",
+                    handler: function () {
+                        me.limpiarContratosSeleccionados(me);
+                    }
+                }, {
+                    text: "Guardar",
+                    handler: function () {
+                        me.guardarContratosCombustible(me);
+                    }
+                }]
+            },
+            store: storeContratosLocal,
+            columns: [
+                {xtype: 'rownumberer', width: 40},
+                {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 3},
+                {text: "Proveedor", dataIndex: "proveedor", flex: 6},
+                {
+                    xtype: "actioncolumn",
+                    items: [
+                    {
+                        xtype: "button",
+                        tooltip: "Quitar",
+                        icon: "static/img/delete-icon-small.png",
+                        handler: function (grid, rowIndex) {
+                            me.quitContrato(grid, rowIndex)
+                        }
+                    }]
+                }
+            ],
+            bodyCls: "gridMayusculas",
+            listeners: {
+                rowdblclick: {
+                    fn: me.getDetalleContratoSiga,
+                    scope: me
+                }
+            }
+        });
     },
 
     renderizate: function (config) {
@@ -161,31 +228,127 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
                         region: "center",
                         layout: "border",
                         defaults: {
-                            xtype: "component",
-                            border: '0 0 1 0',
                             flex: 1,
                             style: {
                                 backgroundColor: "white",
-                                borderColor: "#ccc",
-                                borderStyle: "solid",
                             }
-
                         },
-                        items: [me.panelDetalleContrato, {
-                            region: "center",
-                            html: "Listado contratos seleccionados"
-                        }]
+                        items: [me.panelDetalleContrato, me.gridContratosSel]
                     }]
             }]);
         } else {
             this.reloadPanels();
         }
+    },
+
+    getDetalleContratoSiga: function (table, record) {
+        var idContrato = record.get("secContrato");
+
+        this.panelDetalleContrato.getLoader().load(
+            {
+                params: {secContrato: idContrato},
+                method: "GET"
+            });
+    },
+
+    selecContrato: function (grid, rowIndex) {
+        var rec = grid.getStore().getAt(rowIndex);
+        var storeContratosSelec = this.gridContratosSel.getStore();
         
+        storeContratosSelec.add(rec);
+        grid.getStore().remove(rec)
+        
+        // Persistimos la data en el LocalStorage :)
+        rec.set("id", null);
+        storeContratosSelec.sync();
+    },
+
+    quitContrato: function (grid, rowIndex) {
+        var rec = grid.getStore().getAt(rowIndex);
+        grid.getStore().remove(rec);
+        this.gridContratos.getStore().insert(0, rec);
+
+        grid.getStore().sync();
+    },
+
+    limpiarContratosSeleccionados: function(meObj) {
+        var storeCont = meObj.gridContratos.getStore();
+        var storeContSel = meObj.gridContratosSel.getStore();
+        var contratosSel = storeContSel.removeAll();
+        storeCont.insert(0, contratosSel);
+
+        storeContSel.sync();
+    },
+
+    guardarContratosCombustible: function (meObj) {
+        var store = meObj.gridContratosSel.getStore();
+        var data = {contratos: []};
+        
+        if (store.count()) {
+            store.each(function (record) {
+                data.contratos.push(record.get("secContrato"));
+            });
+            // console.log(data);
+
+            Ext.Msg.confirm("Confirmar", "Desea generar los contratos SIGA", function (res) {
+                if (res == "yes") {
+                    Ext.Ajax.request({
+                        url: "/combustible/guardarContratosCombustible",
+                        jsonData: data,
+                        success: function (xhr) {
+                            var res = Ext.decode(xhr.responseText);
+                            if (res.estado) {
+                                Ext.Msg.show({
+                                    title: "Mensaje",
+                                    msg: res.mensaje,
+                                    buttons: Ext.MessageBox.OK,
+                                    icon: Ext.MessageBox.INFO
+                                });
+
+                                // Limpiamos el store y sincronizamos con el localstorage
+                                store.removeAll();
+                                store.sync();
+
+                                meObj.gridContratos.getStore().load();
+                            }
+                            else {
+                                Ext.Msg.show({
+                                    title: "Error",
+                                    msg: res.mensaje,
+                                    buttons: Ext.MessageBox.OK,
+                                    icon: Ext.MessageBox.WARNING
+                                });
+                            }
+                        },
+                        failure: function (xhr) {
+                            var msg = "Error al generar los contratos de combustible, contácte al administrador de sistemas!!!";
+
+                            Ext.Msg.show({
+                                    title: "Error",
+                                    msg: msg,
+                                    buttons: Ext.MessageBox.OK,
+                                    icon: Ext.MessageBox.ERROR
+                                });
+                        }
+                    });
+                }
+            });
+        } else {
+            var msg = "No existen contratos para procesar, por favor seleccione al menos un contrato.";
+
+            Ext.Msg.show({
+                title: "Error",
+                msg: msg,
+                buttons: Ext.MessageBox.OK,
+                icon: Ext.MessageBox.WARNING
+            });
+        }
     },
 
     reloadPanels: function () {
         this.filtros.getLoader().load();
         this.gridContratos.store.load();
+        this.gridContratosSel.store.load();
         this.panelDetalleContrato.getLoader().load();
     }
 });

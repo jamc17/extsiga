@@ -6,6 +6,7 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Contrato, Proveedor, TipoBien, Ejecutora, FirmaCargaDatos
 
@@ -103,35 +104,34 @@ def importarContratosSiga(request):
 
 	validaHuella = validaHuellaDital(contratosSiga)
 	if not validaHuella:
-		# try:
-		for contratoSiga in contratosSiga:
-			contratoI = Contrato(secContrato = contratoSiga.secContrato)
-			contratoI.anoEje = contratoSiga.anoEje
-			contratoI.secEjec = contratoSiga.secEjec
-			contratoI.tipoBien = contratoSiga.tipoBien
-			contratoI.nroDocumento = contratoSiga.nroDocumento
-			contratoI.proveedor = Proveedor.objects.get(pk = contratoSiga.proveedor.pk)
-			contratoI.especTecnicas = contratoSiga.especTecnicas
-			contratoI.fechaContrato = contratoSiga.fechaContrato
-			contratoI.fechaInicial = contratoSiga.fechaInicial
-			contratoI.fechaFinal = contratoSiga.fechaFinal
-			contratoI.idProceso = contratoSiga.idProceso
-			contratoI.idContrato = contratoSiga.idContrato
-			contratoI.moneda = contratoSiga.moneda
-			contratoI.valorMoneda = contratoSiga.valorMoneda
-			contratoI.nroConsolidado = contratoSiga.nroConsolidado
-			contratoI.anoProceso = contratoSiga.anoProceso
-			contratoI.nroProceso = contratoSiga.nroProceso
+		try:
+			for contratoSiga in contratosSiga:
+				contratoI = Contrato(secContrato = contratoSiga.secContrato)
+				contratoI.anoEje = contratoSiga.anoEje
+				contratoI.secEjec = contratoSiga.secEjec
+				contratoI.tipoBien = contratoSiga.tipoBien
+				contratoI.nroDocumento = contratoSiga.nroDocumento
+				contratoI.proveedor = Proveedor.objects.get(pk = contratoSiga.proveedor.pk)
+				contratoI.especTecnicas = contratoSiga.especTecnicas
+				contratoI.fechaContrato = contratoSiga.fechaContrato
+				contratoI.fechaInicial = contratoSiga.fechaInicial
+				contratoI.fechaFinal = contratoSiga.fechaFinal
+				contratoI.idProceso = contratoSiga.idProceso
+				contratoI.idContrato = contratoSiga.idContrato
+				contratoI.moneda = contratoSiga.moneda
+				contratoI.valorMoneda = contratoSiga.valorMoneda
+				contratoI.nroConsolidado = contratoSiga.nroConsolidado
+				contratoI.anoProceso = contratoSiga.anoProceso
+				contratoI.nroProceso = contratoSiga.nroProceso
 
-			contratoI.save()
+				contratoI.save()
 
-		respuesta["mensaje"] = "Contratos SIGA Importados correctamente !!!"
+			respuesta["mensaje"] = "Contratos SIGA Importados correctamente !!!"
+			registraHuellaDigital(contratosSiga)
 
-		registraHuellaDigital(contratosSiga)
-
-		# except:
-		# 	respuesta["estado"] = False	
-		# 	respuesta["mensaje"] = "Error, Error al importar los contratos SIGA"
+		except:
+			respuesta["estado"] = False	
+			respuesta["mensaje"] = "Error, Error al importar los contratos SIGA"
 		
 	respuesta["mensaje"] += "<br />" + resEjec["mensaje"] + "<br />" + resProv["mensaje"]
 
@@ -179,14 +179,7 @@ def filtrosContratosSiga(request):
 
 
 def getContratosSiga(request):
-	# contratos = list(Contrato.objects.all().order_by("secContrato").values())
-	# contratosJson = {
-	# 	"data": contratos,
-	# 	"success": True
-	# }
-
-	# return HttpResponse(json.dumps(contratosJson), "application/json")
-	contratos = Contrato.objects.all()
+	contratos = Contrato.objects.filter(estado = 0).order_by("secContrato")
 	return render(request, "combustible/listContratosSiga.html", locals());
 
 
@@ -197,6 +190,28 @@ def getDetalleContratoSiga(request):
 		contrato = Contrato.objects.get(pk = secContrato)
 
 	return render(request, "combustible/detalleContrato.html", locals())
+
+
+@csrf_exempt
+def guardarContratosCombustible(request):
+	data = json.loads(request.body)
+
+	respuesta = {
+		"estado": True,
+		"mensaje": "Contratos de combustible importados correctamente"
+	}
+
+	try:
+		for contrato in data["contratos"]:
+			contratoU = Contrato.objects.get(pk = contrato)
+			contratoU.estado = 1
+			contratoU.save()
+	except:
+		respuesta["estado"] = False
+		respuesta["mensaje"] = "Error, No se pudo guardar los contratos seleccionados"
+
+
+	return HttpResponse(json.dumps(respuesta), "application/json")
 
 
 

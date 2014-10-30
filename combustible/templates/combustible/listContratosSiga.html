@@ -4,6 +4,7 @@
 		{% for contrato in contratos %}
 		{
 			"secContrato": "{{contrato.secContrato}}",
+			"anoEje": "{{contrato.anoEje}}",
 			"tipoBien": "{{contrato.tipoBien}}",
 			"nroDocumento": "{{contrato.nroDocumento|upper}}",
 			"proveedor": "{{contrato.proveedor.nombreProv|upper}}",

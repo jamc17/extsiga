@@ -6,7 +6,7 @@ Ext.define("ExtSiga.combustible.model.Contrato", {
 	fields: [
 		{name: "secContrato", type: "string"},
 		{name: "anoEje", type: "string"},
-		{name: "secEjec", type: "string"},
+		// {name: "secEjec", type: "string"},
 		{name: "tipoBien", type: "string"},
 		{name: "nroDocumento", type: "string"},
 		// {name: "glosa", type: "string"},
