@@ -171,9 +171,7 @@ def filtrosContratosSiga(request):
 	thisYear = datetime.today().year
 	years = range(thisYear - 10, thisYear + 1)
 	years.sort(reverse= True)
-
 	tiposBien = TipoBien.objects.all().order_by("nombre")
-	
 
 	return render(request, "combustible/filtrosContratosSiga.html", locals())
 

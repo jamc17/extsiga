@@ -30,6 +30,7 @@ def mainMenu(request):
 				            {"qtitle": "ContratosSiga", "text": "Contratos Siga", "leaf": True },
 				            {"qtitle": "ConsumoMensual", "text": "Consumo Mensual", "leaf": True },
 				            {"qtitle": "GeneraCronograma", "text": "Generar Cronograma", "leaf": True },
+				            {"qtitle": "Estadisticas", "text": "Estadística de Consumo", "leaf": True },
 				        ]
 				    }
 			    }

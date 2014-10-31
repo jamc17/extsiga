@@ -1,6 +1,6 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1812" measuredH="553" mockupW="1797" mockupH="546">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1812" measuredH="1146" mockupW="1797" mockupH="1139">
   <controls>
-    <control controlID="15" controlTypeID="__group__" x="15" y="7" w="891" h="546" measuredW="891" measuredH="546" zOrder="0" locked="false" isInGroup="-1">
+    <control controlID="15" controlTypeID="__group__" x="15" y="7" w="891" h="546" measuredW="891" measuredH="546" zOrder="3" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="891" h="546" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="15">
           <controlProperties>
@@ -33,7 +33,7 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="16" controlTypeID="__group__" x="235" y="186" w="450" h="211" measuredW="450" measuredH="211" zOrder="1" locked="false" isInGroup="-1">
+    <control controlID="16" controlTypeID="__group__" x="235" y="186" w="450" h="211" measuredW="450" measuredH="211" zOrder="4" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="450" h="211" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="16">
           <controlProperties>
@@ -70,7 +70,7 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="17" controlTypeID="__group__" x="921" y="7" w="891" h="546" measuredW="891" measuredH="546" zOrder="2" locked="false" isInGroup="-1">
+    <control controlID="17" controlTypeID="__group__" x="921" y="7" w="891" h="546" measuredW="891" measuredH="546" zOrder="5" locked="false" isInGroup="-1">
       <groupChildrenDescriptors>
         <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="891" h="546" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="17">
           <controlProperties>
@@ -103,104 +103,272 @@
         </control>
       </groupChildrenDescriptors>
     </control>
-    <control controlID="19" controlTypeID="com.balsamiq.mockups::Accordion" x="922" y="104" w="150" h="415" measuredW="150" measuredH="294" zOrder="3" locked="false" isInGroup="-1">
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Accordion" x="922" y="104" w="150" h="415" measuredW="172" measuredH="321" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>Combustible%0A-%20Contratos%20Siga%0A-%20Consumo%20Mensual%0A-%20Generar%20Cronograma%0ASeguimiento%0ASIGA-SIAF%0AUtilitarios%0AAdministraci%F3n</text>
+        <text>Combustible%0A-%20Contratos%20Siga%0A-%20Consumo%20Mensual%0A-%20Generar%20Cronograma%0A-%20Estad%EDsticas%20de%20Consumo%0ASeguimiento%0ASIGA-SIAF%0AUtilitarios%0AAdministraci%F3n</text>
       </controlProperties>
     </control>
-    <control controlID="20" controlTypeID="com.balsamiq.mockups::Canvas" x="1072" y="106" w="429" h="80" measuredW="100" measuredH="70" zOrder="4" locked="false" isInGroup="-1"/>
-    <control controlID="22" controlTypeID="com.balsamiq.mockups::DataGrid" x="1071" y="215" w="430" h="304" measuredW="340" measuredH="195" zOrder="5" locked="false" isInGroup="-1">
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::Canvas" x="1072" y="106" w="429" h="80" measuredW="100" measuredH="70" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::DataGrid" x="1071" y="215" w="430" h="304" measuredW="340" measuredH="195" zOrder="8" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Name%5Cr%28job%20title%29%20%5E%2C%20Age%20%5Ev%2C%20Nickname%2C%20Employee%20v%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%2037%2C%20Peldi%2C%20%28o%29%0AMarco%20Botton%5CrTuttofare%2C%2034%2C%20%2C%20%5Bx%5D%0AMariah%20Maclachlan%5CrBetter%20Half%2C%2037%2C%20Patata%2C%20%5B-%5D%0AValerie%20Liberty%5CrHead%20Chef%2C%20%3A%29%2C%20Val%2C%20%5Bx%5D%0AGuido%20Jack%20Guilizzoni%2C%206%2C%20The%20Guids%2C%20%5B%5D%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
       </controlProperties>
     </control>
-    <control controlID="23" controlTypeID="com.balsamiq.mockups::ComboBox" x="1083" y="132" w="-1" h="-1" measuredW="93" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::ComboBox" x="1083" y="132" w="-1" h="-1" measuredW="93" measuredH="24" zOrder="9" locked="false" isInGroup="-1">
       <controlProperties>
         <text>ComboBox</text>
       </controlProperties>
     </control>
-    <control controlID="24" controlTypeID="com.balsamiq.mockups::ComboBox" x="1179" y="132" w="-1" h="-1" measuredW="93" measuredH="24" zOrder="7" locked="false" isInGroup="-1">
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::ComboBox" x="1179" y="132" w="-1" h="-1" measuredW="93" measuredH="24" zOrder="10" locked="false" isInGroup="-1">
       <controlProperties>
         <text>ComboBox</text>
       </controlProperties>
     </control>
-    <control controlID="26" controlTypeID="com.balsamiq.mockups::TextInput" x="1276" y="131" w="156" h="-1" measuredW="79" measuredH="26" zOrder="8" locked="false" isInGroup="-1">
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::TextInput" x="1276" y="131" w="156" h="-1" measuredW="79" measuredH="26" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
         <text/>
       </controlProperties>
     </control>
-    <control controlID="27" controlTypeID="com.balsamiq.mockups::Button" x="1432" y="132" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::Button" x="1432" y="132" w="-1" h="-1" measuredW="61" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Button</text>
       </controlProperties>
     </control>
-    <control controlID="28" controlTypeID="com.balsamiq.mockups::DataGrid" x="1501" y="326" w="311" h="191" measuredW="340" measuredH="195" zOrder="10" locked="false" isInGroup="-1">
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::DataGrid" x="1501" y="326" w="311" h="191" measuredW="340" measuredH="195" zOrder="13" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Name%5Cr%28job%20title%29%20%5E%2C%20Age%20%5Ev%2C%20Nickname%2C%20Employee%20v%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%2037%2C%20Peldi%2C%20%28o%29%0AMarco%20Botton%5CrTuttofare%2C%2034%2C%20%2C%20%5Bx%5D%0AMariah%20Maclachlan%5CrBetter%20Half%2C%2037%2C%20Patata%2C%20%5B-%5D%0AValerie%20Liberty%5CrHead%20Chef%2C%20%3A%29%2C%20Val%2C%20%5Bx%5D%0AGuido%20Jack%20Guilizzoni%2C%206%2C%20The%20Guids%2C%20%5B%5D%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
       </controlProperties>
     </control>
-    <control controlID="30" controlTypeID="com.balsamiq.mockups::Canvas" x="1501" y="108" w="310" h="190" measuredW="100" measuredH="70" zOrder="11" locked="false" isInGroup="-1"/>
-    <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="1585" y="117" w="-1" h="-1" measuredW="142" measuredH="26" zOrder="12" locked="false" isInGroup="-1">
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Canvas" x="1501" y="108" w="310" h="190" measuredW="100" measuredH="70" zOrder="14" locked="false" isInGroup="-1"/>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Label" x="1585" y="117" w="-1" h="-1" measuredW="142" measuredH="26" zOrder="15" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
         <size>18</size>
         <text>Detalle%20Contrato</text>
       </controlProperties>
     </control>
-    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="155" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="155" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="33" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="155" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="155" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="186" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="15" locked="false" isInGroup="-1">
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="186" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="186" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="186" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="36" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="215" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="17" locked="false" isInGroup="-1">
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="215" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="37" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="215" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="215" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="242" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+    <control controlID="38" controlTypeID="com.balsamiq.mockups::Label" x="1511" y="242" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="39" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="242" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::Label" x="1593" y="242" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="23" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Some%20text</text>
       </controlProperties>
     </control>
-    <control controlID="40" controlTypeID="com.balsamiq.mockups::Button" x="1503" y="299" w="-1" h="-1" measuredW="135" measuredH="27" zOrder="21" locked="false" isInGroup="-1">
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::Button" x="1503" y="299" w="-1" h="-1" measuredW="135" measuredH="27" zOrder="24" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Importar%20Contratos</text>
       </controlProperties>
     </control>
-    <control controlID="41" controlTypeID="com.balsamiq.mockups::Button" x="1427" y="186" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::Button" x="1427" y="186" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="25" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Agregar</text>
       </controlProperties>
     </control>
-    <control controlID="42" controlTypeID="com.balsamiq.mockups::Label" x="1074" y="192" w="-1" h="-1" measuredW="165" measuredH="21" zOrder="23" locked="false" isInGroup="-1">
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Label" x="1074" y="192" w="-1" h="-1" measuredW="165" measuredH="21" zOrder="26" locked="false" isInGroup="-1">
       <controlProperties>
         <bold>true</bold>
         <text>Listado%20de%20contratos%20SIGA</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Accordion" x="15" y="696" w="150" h="415" measuredW="172" measuredH="321" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Combustible%0A-%20Contratos%20Siga%0A-%20Consumo%20Mensual%0A-%20Generar%20Cronograma%0A-%20Estad%EDsticas%20de%20Consumo%0ASeguimiento%0ASIGA-SIAF%0AUtilitarios%0AAdministraci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="__group__" x="15" y="600" w="897" h="546" measuredW="897" measuredH="546" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="897" h="546" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="45">
+          <controlProperties>
+            <bottomheight>0</bottomheight>
+            <close>true</close>
+            <dragger>false</dragger>
+            <maximizeRestore>true</maximizeRestore>
+            <minimize>true</minimize>
+            <text>Browser</text>
+            <topheight>26</topheight>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Canvas" x="0" y="96" w="897" h="416" measuredW="100" measuredH="70" zOrder="1" locked="false" isInGroup="45"/>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::IconLabel" x="0" y="32" w="57" h="-1" measuredW="48" measuredH="63" zOrder="2" locked="false" isInGroup="45">
+          <controlProperties>
+            <text>Logo</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::LinkBar" x="652" y="43" w="-1" h="-1" measuredW="228" measuredH="19" zOrder="3" locked="false" isInGroup="45">
+          <controlProperties>
+            <text>Unidad%20Ejecutora%2C%20Username%2C%20Salir</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="63" y="41" w="111" h="-1" measuredW="107" measuredH="32" zOrder="4" locked="false" isInGroup="45">
+          <controlProperties>
+            <bold>true</bold>
+            <size>24</size>
+            <text>EXTSIGA</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::Canvas" x="165" y="696" w="397" h="44" measuredW="100" measuredH="70" zOrder="28" locked="false" isInGroup="-1"/>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::ComboBox" x="174" y="706" w="98" h="-1" measuredW="53" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%F1o</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::DataGrid" x="165" y="767" w="397" h="337" measuredW="337" measuredH="195" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%5Cr%28job%20title%29%20%5E%2C%20Age%20%5Ev%2C%20Nickname%2C%20Acciones%20v%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%2037%2C%20Peldi%2C%20%5B%20%5D%0AMarco%20Botton%5CrTuttofare%2C%2034%2C%20%2C%20%5B%20%5D%0AMariah%20Maclachlan%5CrBetter%20Half%2C%2037%2C%20Patata%2C%20%5B%20%5D%0AValerie%20Liberty%5CrHead%20Chef%2C%20%3A%29%2C%20Val%2C%20%5B%20%5D%0AGuido%20Jack%20Guilizzoni%2C%206%2C%20The%20Guids%2C%20%5B%20%5D%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::DataGrid" x="568" y="977" w="338" h="134" measuredW="340" measuredH="179" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Age%20%5Ev%2C%20Nickname%2C%20Employee%20v%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%2037%2C%20Peldi%2C%20%28o%29%0AMarco%20Botton%5CrTuttofare%2C%2034%2C%20%2C%20%5Bx%5D%0AMariah%20Maclachlan%5CrBetter%20Half%2C%2037%2C%20Patata%2C%20%5B-%5D%0AValerie%20Liberty%5CrHead%20Chef%2C%20%3A%29%2C%20Val%2C%20%5Bx%5D%0AGuido%20Jack%20Guilizzoni%2C%206%2C%20The%20Guids%2C%20%5B%5D%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::Label" x="171" y="743" w="-1" h="-1" measuredW="120" measuredH="22" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>14</size>
+        <text>Listado%20Contratos</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::Label" x="571" y="957" w="-1" h="-1" measuredW="182" measuredH="21" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Detalle%20Presupuestal%20por%20A%F1o</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::DataGrid" x="568" y="738" w="338" h="99" measuredW="340" measuredH="179" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Age%20%5Ev%2C%20Nickname%2C%20Employee%20v%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%2037%2C%20Peldi%2C%20%28o%29%0AMarco%20Botton%5CrTuttofare%2C%2034%2C%20%2C%20%5Bx%5D%0AMariah%20Maclachlan%5CrBetter%20Half%2C%2037%2C%20Patata%2C%20%5B-%5D%0AValerie%20Liberty%5CrHead%20Chef%2C%20%3A%29%2C%20Val%2C%20%5Bx%5D%0AGuido%20Jack%20Guilizzoni%2C%206%2C%20The%20Guids%2C%20%5B%5D%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::Label" x="571" y="722" w="-1" h="-1" measuredW="161" measuredH="21" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Detalle%20Anual%20del%20contrato</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::DataGrid" x="932" y="843" w="251" h="101" measuredW="325" measuredH="101" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%5Cr%28job%20title%29%20%5E%2C%20Age%20%5Ev%2C%20Nickname%2C%20Employee%20v%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%2037%2C%20Peldi%2C%20%28o%29%0AMarco%20Botton%5CrTuttofare%2C%2034%2C%20%2C%20%5Bx%5D%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::Canvas" x="932" y="627" w="250" h="190" measuredW="100" measuredH="70" zOrder="37" locked="false" isInGroup="-1"/>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="991" y="642" w="-1" h="-1" measuredW="142" measuredH="26" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>18</size>
+        <text>Detalle%20Contrato</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Label" x="953" y="680" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::Label" x="1035" y="680" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::Label" x="953" y="711" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="com.balsamiq.mockups::Label" x="1035" y="711" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Label" x="953" y="740" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::Label" x="1035" y="740" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::Label" x="953" y="767" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::Label" x="1035" y="767" w="-1" h="-1" measuredW="61" measuredH="21" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Some%20text</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::Label" x="932" y="822" w="-1" h="-1" measuredW="37" measuredH="21" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Items%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::TitleWindow" x="926" y="597" w="262" h="380" measuredW="450" measuredH="400" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Detalle%20Contrato</text>
+      </controlProperties>
+    </control>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::Arrow" x="514" y="617" w="427" h="173" measuredW="150" measuredH="100" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <rightArrow>true</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::Label" x="568" y="837" w="-1" h="-1" measuredW="189" measuredH="21" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>13</size>
+        <text>Fases%20Presupuestales%20por%20A%F1o</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::DataGrid" x="568" y="860" w="338" h="99" measuredW="340" measuredH="179" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Name%20%5E%2C%20Age%20%5Ev%2C%20Nickname%2C%20Employee%20v%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%2037%2C%20Peldi%2C%20%28o%29%0AMarco%20Botton%5CrTuttofare%2C%2034%2C%20%2C%20%5Bx%5D%0AMariah%20Maclachlan%5CrBetter%20Half%2C%2037%2C%20Patata%2C%20%5B-%5D%0AValerie%20Liberty%5CrHead%20Chef%2C%20%3A%29%2C%20Val%2C%20%5Bx%5D%0AGuido%20Jack%20Guilizzoni%2C%206%2C%20The%20Guids%2C%20%5B%5D%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::TabBar" x="562" y="698" w="344" h="413" measuredW="276" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Compromiso%20Anual%2C%20Cronograma</text>
       </controlProperties>
     </control>
   </controls>

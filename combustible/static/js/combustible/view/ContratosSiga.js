@@ -101,11 +101,12 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
             },
             store: storeContratos,
             columns: [
-                {xtype: 'rownumberer', width: 40},
+                {xtype: 'rownumberer', width: 30},
                 {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 3},
-                {text: "Proveedor", dataIndex: "proveedor", flex: 6},
+                {text: "Proveedor", dataIndex: "proveedor", flex: 7},
                 {
                     xtype: "actioncolumn",
+                    width: 30,
                     items: [
                     {
                         xtype: "button",
@@ -175,11 +176,12 @@ Ext.define("ExtSiga.combustible.view.ContratosSiga", {
             },
             store: storeContratosLocal,
             columns: [
-                {xtype: 'rownumberer', width: 40},
+                {xtype: 'rownumberer', width: 30},
                 {text: "Nro Contrato", dataIndex: "nroDocumento", flex: 3},
-                {text: "Proveedor", dataIndex: "proveedor", flex: 6},
+                {text: "Proveedor", dataIndex: "proveedor", flex: 7},
                 {
                     xtype: "actioncolumn",
+                    width: 30,
                     items: [
                     {
                         xtype: "button",
