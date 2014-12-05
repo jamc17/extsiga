@@ -73,11 +73,11 @@ DATABASES = {
         'HOST': 'localhost',
     },
 
-    # 'backup': {
+    # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'extsiga',
-    #     'USER': 'siga',
-    #     'PASSWORD': 'siga',
+    #     'USER': 'root',
+    #     'PASSWORD': 'JAMC17',
     #     'HOST': '127.0.0.1',
     # },
 

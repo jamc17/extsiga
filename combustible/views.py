@@ -216,6 +216,7 @@ def guardarContratosCombustible(request):
 		for contrato in data["contratos"]:
 			contratoU = Contrato.objects.get(pk = contrato)
 			
+			# Cargamos el detalle (presupuestal, bienes, CC) del contrato
 			cursorRemote.execute("SELECT * FROM SIG_CONTRATOS WHERE SEC_CONTRATO = %s", [contrato])
 			print cursorRemote.fetchone()
 			
