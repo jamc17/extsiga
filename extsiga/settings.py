@@ -73,13 +73,13 @@ DATABASES = {
         'HOST': 'localhost',
     },
 
-    'backup': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'extsiga',
-        'USER': 'siga',
-        'PASSWORD': 'siga',
-        'HOST': '127.0.0.1',
-    },
+    # 'backup': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'extsiga',
+    #     'USER': 'siga',
+    #     'PASSWORD': 'siga',
+    #     'HOST': '127.0.0.1',
+    # },
 
     # 'remote': {
     #     'ENGINE': 'django.db.backends.sqlite3',

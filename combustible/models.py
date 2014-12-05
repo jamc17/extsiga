@@ -52,6 +52,9 @@ class CentroCosto(models.Model):
 	centroCosto = models.CharField(max_length=15, db_column="CENTRO_COSTO")
 	nombreDepend = models.CharField(max_length=100, db_column="NOMBRE_DEPEND")
 
+	class Meta:
+		db_table = "SIG_CENTRO_COSTO"
+
 
 class Contrato(models.Model):
 	secContrato = models.CharField(max_length=50, db_column='SEC_CONTRATO', primary_key=True)
@@ -81,30 +84,34 @@ class Contrato(models.Model):
 
 
 class ContratoDet(models.Model):
-	anoEje = models.IntegerField(db_column="ANO_EJE")
-	secEjec = models.ForeignKey(Ejecutora, db_column="SEC_EJEC")
-	nroContrato = models.IntegerField(db_column="NRO_CONTRATO")
+	# anoEje = models.IntegerField(db_column="ANO_EJE")
+	# secEjec = models.ForeignKey(Ejecutora, db_column="SEC_EJEC")
+	# nroContrato = models.IntegerField(db_column="NRO_CONTRATO")
+	contrato = models.ForeignKey(Contrato)
 	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
 	valorMoneda = models.DecimalField(max_digits=16, decimal_places=2, null=True, db_column='VALOR_MONEDA')
 
+	class Meta:
+		db_table = "SIG_CONTRATO_DET"
+
 
 class ContratoSecuencia(models.Model):
-	anoEje = models.IntegerField(db_column="ANO_EJE")
-	secEjec = models.ForeignKey(Ejecutora, db_column="SEC_EJEC")
-	nroContrato = models.IntegerField(db_column="NRO_CONTRATO")
-	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
+	contrato = models.ForeignKey(Contrato)
 	secFase = models.SmallIntegerField(db_column="SEC_FASE")
+	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
 	faseContrato = models.CharField(max_length="1", db_column="FASE_CONTRATO")
 	estadoFase = models.CharField(max_length="1", db_column="ESTADO_FASE")
 	flagComprometido = models.CharField(max_length="1", db_column="FLAG_COMPROMETIDO")
 
+	class Meta:
+		db_table = "SIG_CONTRATO_SECUENCIA"
+
 
 class ContratoDetPptal(models.Model):
-	anoEje = models.IntegerField(db_column="ANO_EJE")
-	secEjec = models.ForeignKey(Ejecutora, db_column="SEC_EJEC")
-	nroContrato = models.IntegerField(db_column="NRO_CONTRATO")
+	contrato = models.ForeignKey(Contrato)
 	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
-	secFase = models.IntegerField(db_column="SEC_FASE")
+	# secFase = models.IntegerField(db_column="SEC_FASE")
+	secFase = models.ForeignKey(ContratoSecuencia)
 	secDetPptal = models.IntegerField(db_column="SEC_DET_PPTAL")
 	fuenteFinanc = models.CharField(max_length="2", db_column="FUENTE_FINANC")
 	clasificador = models.CharField(max_length="20", db_column="CLASIFICADOR")
@@ -116,11 +123,9 @@ class ContratoDetPptal(models.Model):
 
 
 class ContratoDetDepe(models.Model):
-	anoEje = models.IntegerField(db_column="ANO_EJE")
-	secEjec = models.ForeignKey(Ejecutora, db_column="SEC_EJEC")
-	nroContrato = models.IntegerField(db_column="NRO_CONTRATO")
+	contrato = models.ForeignKey(Contrato)
 	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
-	secFase = models.IntegerField(db_column="SEC_FASE")
+	secFase = models.ForeignKey(ContratoSecuencia)
 	secDetPptal = models.IntegerField(db_column="SEC_DET_PPTAL")
 	secDetDepe = models.IntegerField(db_column="SEC_DET_DEPE")
 	centroCosto = models.CharField(max_length="15")
@@ -132,9 +137,7 @@ class ContratoDetDepe(models.Model):
 
 
 class ContratoItem(models.Model):
-	anoEje = models.IntegerField(db_column="ANO_EJE")
-	secEjec = models.ForeignKey(Ejecutora, db_column="SEC_EJEC")
-	nroContrato = models.IntegerField(db_column="NRO_CONTRATO")
+	contrato = models.ForeignKey(Contrato)
 	nroItem = models.IntegerField(db_column="NRO_ITEM")
 	tipoBien = models.CharField(max_length=2, db_column='TIPO_BIEN')
 	grupoBien = models.CharField(max_length=2, db_column="GRUPO_BIEN")
@@ -154,6 +157,7 @@ class ContratoItem(models.Model):
 
 	class Meta:
 		db_table = "SIG_CONTRATO_ITEM"
+
 
 
 class FirmaCargaDatos(models.Model):

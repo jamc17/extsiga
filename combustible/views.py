@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.db import connections
 
 from .models import Contrato, Proveedor, TipoBien, Ejecutora, FirmaCargaDatos
 
@@ -209,11 +210,19 @@ def guardarContratosCombustible(request):
 		"mensaje": "Contratos de combustible importados correctamente"
 	}
 
+	cursorRemote = connections['remote'].cursor()
+
 	try:
 		for contrato in data["contratos"]:
 			contratoU = Contrato.objects.get(pk = contrato)
-			contratoU.estado = 1
+			
+			cursorRemote.execute("SELECT * FROM SIG_CONTRATOS WHERE SEC_CONTRATO = %s", [contrato])
+			print cursorRemote.fetchone()
+			
+			# contratoU.estado = 1
 			contratoU.save()
+		cursorRemote.close()
+
 	except:
 		respuesta["estado"] = False
 		respuesta["mensaje"] = "Error, No se pudo guardar los contratos seleccionados"
