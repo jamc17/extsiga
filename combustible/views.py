@@ -9,7 +9,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connections
 
-from .models import Contrato, Proveedor, TipoBien, Ejecutora, FirmaCargaDatos
+from .models import Contrato, Proveedor, TipoBien, Ejecutora, FirmaCargaDatos, ContratoDet, ContratoSecuencia, ContratoDetPptal
 
 
 def registraHuellaDigital(querySet):
@@ -201,6 +201,7 @@ def getDetalleContratoSiga(request):
 	return render(request, "combustible/detalleContrato.html", locals())
 
 
+# from psycopg2.extras import DictCursor
 @csrf_exempt
 def guardarContratosCombustible(request):
 	data = json.loads(request.body)
@@ -212,24 +213,80 @@ def guardarContratosCombustible(request):
 
 	cursorRemote = connections['remote'].cursor()
 
-	try:
-		for contrato in data["contratos"]:
-			contratoU = Contrato.objects.get(pk = contrato)
-			
-			# Cargamos el detalle (presupuestal, bienes, CC) del contrato
-			cursorRemote.execute("SELECT * FROM SIG_CONTRATOS WHERE SEC_CONTRATO = %s", [contrato])
-			print cursorRemote.fetchone()
-			
-			# contratoU.estado = 1
-			contratoU.save()
-		cursorRemote.close()
+	# try:
+	for contrato in data["contratos"]:
+		contratoU = Contrato.objects.get(pk = contrato)
+		
+		# Cargamos el detalle (presupuestal, bienes, CC) del contrato
+		params = {
+			"contrato": contratoU,
+			"anoEje": contratoU.anoEje,
+			"secEjec": contratoU.secEjec,
+			"nroContrato": int(contrato[6:])
+		}
+		guardaDetalleContrato(cursorRemote, params)
 
-	except:
-		respuesta["estado"] = False
-		respuesta["mensaje"] = "Error, No se pudo guardar los contratos seleccionados"
+		guardaSecuenciaContrato(cursorRemote, params)
+
+		guardaDetPptalContrato(cursorRemote, params)
+		
+		# contratoU.estado = 1
+		contratoU.save()
+	cursorRemote.close()
+
+	# except:
+	# 	respuesta["estado"] = False
+	# 	respuesta["mensaje"] = "Error, No se pudo guardar los contratos seleccionados"
 
 
 	return HttpResponse(json.dumps(respuesta), "application/json")
+
+
+def guardaDetalleContrato(cursor, params):
+	cursor.execute("SELECT * FROM SIG_CONTRATO_DET WHERE SEC_EJEC = %s AND ANO_EJE = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["nroContrato"]])
+		
+	if cursor.rowcount:
+		contratoDetRemote = dictfetchall(cursor)[0]
+		contratoDet = ContratoDet()
+		contratoDet.contrato = params["contrato"]
+		contratoDet.anoProceso = contratoDetRemote["ANO_PROCESO"]
+		contratoDet.valorMoneda = contratoDetRemote["VALOR_MONEDA"]
+		contratoDet.save()
+
+
+def guardaSecuenciaContrato(cursor, params):
+	cursor.execute("SELECT * FROM SIG_CONTRATO_SECUENCIA WHERE SEC_EJEC = %s AND ANO_EJE = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["nroContrato"]])
+
+	if cursor.rowcount:
+		contratosSecRemote = dictfetchall(cursor)
+		for contratoSecRemote in contratosSecRemote:
+			contratoSec = ContratoSecuencia()
+			contratoSec.contrato = params["contrato"]
+			contratoSec.secFase = contratoSecRemote["SEC_FASE"]
+			contratoSec.anoProceso = contratoSecRemote["ANO_PROCESO"]
+			contratoSec.faseContrato = contratoSecRemote["FASE_CONTRATO"]
+			contratoSec.estadoFase = contratoSecRemote["ESTADO_FASE"]
+			contratoSec.flagComprometido = contratoSecRemote["FLAG_COMPROMETIDO"]
+			contratoSec.save()
+
+
+def guardaDetPptalContrato(cursor, params):
+	cursor.execute("SELECT * FROM SIG_CONTRATO_DET_PPTAL WHERE SEC_EJEC = %s AND ANO_EJE = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["nroContrato"]])
+
+	if cursor.rowcount:
+		contratosDetPptalRemote = dictfetchall(cursor)
+		for contratoDetPptalRemote in contratosDetPptalRemote:
+			print contratoDetPptalRemote
+
+
+
+def dictfetchall(cursor):
+    # "Returns all rows from a cursor as a dict"
+    desc = cursor.description
+    return [
+        dict(zip([col[0] for col in desc], row))
+        for row in cursor.fetchall()
+    ]
 
 
 
