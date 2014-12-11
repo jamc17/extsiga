@@ -344,7 +344,6 @@ def guardarCatalogoBienServ(cursor, params):
 	items = CatalogoBienServ.objects.filter(secEjec = params["secEjec"], tipoBien = params["tipoBien"], grupoBien = params["grupoBien"], claseBien = params["claseBien"], familiaBien = params["familiaBien"], itemBien = params["itemBien"])
 
 	if not items:
-
 		cursor.execute("SELECT SEC_EJEC, TIPO_BIEN, GRUPO_BIEN, CLASE_BIEN, FAMILIA_BIEN, ITEM_BIEN, NOMBRE_ITEM, CODIGO_ITEM FROM CATALOGO_BIEN_SERV WHERE SEC_EJEC = %s AND TIPO_BIEN = %s AND GRUPO_BIEN = %s AND CLASE_BIEN = %s AND FAMILIA_BIEN = %s and ITEM_BIEN = %s", [params["secEjec"], params["tipoBien"], params["grupoBien"], params["claseBien"], params["familiaBien"], params["itemBien"]])
 
 		itemRemote = dictfetchall(cursor)[0]
