@@ -9,7 +9,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connections
 
-from .models import Contrato, Proveedor, TipoBien, Ejecutora, FirmaCargaDatos, ContratoDet, ContratoSecuencia, ContratoDetPptal
+from .models import Contrato, Proveedor, TipoBien, Ejecutora, FirmaCargaDatos, ContratoDet, ContratoSecuencia, ContratoDetPptal, ContratoItem, CatalogoBienServ
 
 
 def registraHuellaDigital(querySet):
@@ -110,6 +110,8 @@ def importarContratosSiga(request):
 				contratoI = Contrato(secContrato = contratoSiga.secContrato)
 				contratoI.anoEje = contratoSiga.anoEje
 				contratoI.secEjec = contratoSiga.secEjec
+				contratoI.tipoContrato = contratoSiga.tipoContrato
+				contratoI.nroContrato = contratoSiga.nroContrato
 				contratoI.tipoBien = contratoSiga.tipoBien
 				contratoI.nroDocumento = contratoSiga.nroDocumento
 				contratoI.proveedor = Proveedor.objects.get(pk = contratoSiga.proveedor.pk)
@@ -208,7 +210,7 @@ def guardarContratosCombustible(request):
 
 	respuesta = {
 		"estado": True,
-		"mensaje": "Contratos de combustible importados correctamente"
+		"mensaje": "Contratos importados correctamente"
 	}
 
 	cursorRemote = connections['remote'].cursor()
@@ -222,16 +224,22 @@ def guardarContratosCombustible(request):
 			"contrato": contratoU,
 			"anoEje": contratoU.anoEje,
 			"secEjec": contratoU.secEjec,
-			"nroContrato": int(contrato[6:])
+			"tipoContrato": contratoU.tipoContrato,
+			"nroContrato": contratoU.nroContrato
 		}
-		guardaDetalleContrato(cursorRemote, params)
 
-		guardaSecuenciaContrato(cursorRemote, params)
+		# Verificamos que los contratos a importar estén comprometidos
+		if verificaCompromisoContrato(cursorRemote, params):
+			guardaDetalleContrato(cursorRemote, params)
 
-		guardaDetPptalContrato(cursorRemote, params)
-		
-		# contratoU.estado = 1
-		contratoU.save()
+			guardaSecuenciaContrato(cursorRemote, params)
+
+			guardaDetPptalContrato(cursorRemote, params)
+
+			guardaItemsContrato(cursorRemote, params)
+			
+			# contratoU.estado = 1
+			contratoU.save()
 	cursorRemote.close()
 
 	# except:
@@ -242,28 +250,39 @@ def guardarContratosCombustible(request):
 	return HttpResponse(json.dumps(respuesta), "application/json")
 
 
+def verificaCompromisoContrato(cursor, params):
+	cursor.execute("SELECT * FROM SIG_CONTRATO_SECUENCIA WHERE SEC_EJEC = %s AND ANO_EJE = %s AND TIPO_CONTRATO = %s AND NRO_CONTRATO = %s AND FLAG_COMPROMETIDO = %s", [params["secEjec"], params["anoEje"], params["tipoContrato"], params["nroContrato"], 'S'])
+
+	if cursor.rowcount:
+		return True
+
+	return False
+
+
 def guardaDetalleContrato(cursor, params):
-	cursor.execute("SELECT * FROM SIG_CONTRATO_DET WHERE SEC_EJEC = %s AND ANO_EJE = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["nroContrato"]])
+	cursor.execute("SELECT * FROM SIG_CONTRATO_DET WHERE SEC_EJEC = %s AND ANO_EJE = %s AND TIPO_CONTRATO = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["tipoContrato"], params["nroContrato"]])
 		
 	if cursor.rowcount:
-		contratoDetRemote = dictfetchall(cursor)[0]
-		contratoDet = ContratoDet()
-		contratoDet.contrato = params["contrato"]
-		contratoDet.anoProceso = contratoDetRemote["ANO_PROCESO"]
-		contratoDet.valorMoneda = contratoDetRemote["VALOR_MONEDA"]
-		contratoDet.save()
+		contratosDetRemote = dictfetchall(cursor)
+		for contratoDetRemote in contratosDetRemote:
+			contratoDet = ContratoDet()
+			contratoDet.contrato = params["contrato"]
+			contratoDet.anoProceso = contratoDetRemote["ANO_PROCESO"]
+			contratoDet.valorMoneda = contratoDetRemote["VALOR_MONEDA"]
+			contratoDet.save()
 
 
 def guardaSecuenciaContrato(cursor, params):
-	cursor.execute("SELECT * FROM SIG_CONTRATO_SECUENCIA WHERE SEC_EJEC = %s AND ANO_EJE = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["nroContrato"]])
+	cursor.execute("SELECT * FROM SIG_CONTRATO_SECUENCIA WHERE SEC_EJEC = %s AND ANO_EJE = %s AND TIPO_CONTRATO = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["tipoContrato"], params["nroContrato"]])
 
 	if cursor.rowcount:
 		contratosSecRemote = dictfetchall(cursor)
 		for contratoSecRemote in contratosSecRemote:
+			contratoDet = params["contrato"].contratodet_set.filter(anoProceso = contratoSecRemote["ANO_PROCESO"])[0]
+
 			contratoSec = ContratoSecuencia()
-			contratoSec.contrato = params["contrato"]
+			contratoSec.contratoDet = contratoDet
 			contratoSec.secFase = contratoSecRemote["SEC_FASE"]
-			contratoSec.anoProceso = contratoSecRemote["ANO_PROCESO"]
 			contratoSec.faseContrato = contratoSecRemote["FASE_CONTRATO"]
 			contratoSec.estadoFase = contratoSecRemote["ESTADO_FASE"]
 			contratoSec.flagComprometido = contratoSecRemote["FLAG_COMPROMETIDO"]
@@ -276,8 +295,73 @@ def guardaDetPptalContrato(cursor, params):
 	if cursor.rowcount:
 		contratosDetPptalRemote = dictfetchall(cursor)
 		for contratoDetPptalRemote in contratosDetPptalRemote:
-			print contratoDetPptalRemote
+			contratoSecuencia = params["contrato"].contratodet_set.filter(anoProceso = contratoDetPptalRemote["ANO_PROCESO"])[0].contratosecuencia_set.filter(secFase = contratoDetPptalRemote["SEC_FASE"])[0]
 
+			contratoDetPptal = ContratoDetPptal()
+			contratoDetPptal.contratoSecuencia = contratoSecuencia
+			contratoDetPptal.secDetPptal = contratoDetPptalRemote["SEC_DET_PPTAL"]
+			contratoDetPptal.fuenteFinanc = contratoDetPptalRemote["FUENTE_FINANC"]
+			contratoDetPptal.secFunc = contratoDetPptalRemote["SEC_FUNC"]
+			contratoDetPptal.clasificador = contratoDetPptalRemote["CLASIFICADOR"]
+			contratoDetPptal.valorMoneda = contratoDetPptalRemote["VALOR_MONEDA"]
+			contratoDetPptal.idClasificador = contratoDetPptalRemote["ID_CLASIFICADOR"]
+			contratoDetPptal.save()
+
+def guardaItemsContrato(cursor, params):
+	cursor.execute("SELECT * FROM SIG_CONTRATO_ITEM WHERE SEC_EJEC = %s AND ANO_EJE = %s AND TIPO_CONTRATO = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["tipoContrato"], params["nroContrato"]])
+
+	if cursor.rowcount:
+		contratoItemsRemote = dictfetchall(cursor)
+		for contratoItemRemote in contratoItemsRemote:
+			# Insertamos primero los items del contrato
+			paramsItem = {
+				"secEjec": params["secEjec"],
+				"tipoBien": contratoItemRemote["TIPO_BIEN"],
+				"grupoBien": contratoItemRemote["GRUPO_BIEN"],
+				"claseBien": contratoItemRemote["CLASE_BIEN"],
+				"familiaBien": contratoItemRemote["FAMILIA_BIEN"],
+				"itemBien": contratoItemRemote["ITEM_BIEN"],
+			}
+			item = guardarCatalogoBienServ(cursor, paramsItem)
+
+			contratoItem = ContratoItem()
+			contratoItem.contrato = params["contrato"]
+			contratoItem.nroItem = contratoItemRemote["NRO_ITEM"]
+			contratoItem.item = item
+			contratoItem.unidadMedida = contratoItemRemote["UNIDAD_MEDIDA"]
+			contratoItem.cantidad = contratoItemRemote["CANTIDAD"]
+			contratoItem.cantidadAdjudica = contratoItemRemote["CANTIDAD_ADJUDICA"]
+			contratoItem.moneda = contratoItemRemote["MONEDA"]
+			contratoItem.precioMoneda = contratoItemRemote["PRECIO_MONEDA"]
+			contratoItem.valorMoneda = contratoItemRemote["VALOR_MONEDA"]
+			contratoItem.valorSoles = contratoItemRemote["VALOR_SOLES"]
+			contratoItem.cantidadAjustada = contratoItemRemote["CANTIDAD_AJUSTADA"]
+			contratoItem.valorMonedaAjustado = contratoItemRemote["VALOR_MONEDA_AJUSTADO"]
+			contratoItem.save()
+
+
+def guardarCatalogoBienServ(cursor, params):
+	items = CatalogoBienServ.objects.filter(secEjec = params["secEjec"], tipoBien = params["tipoBien"], grupoBien = params["grupoBien"], claseBien = params["claseBien"], familiaBien = params["familiaBien"], itemBien = params["itemBien"])
+
+	if not items:
+
+		cursor.execute("SELECT SEC_EJEC, TIPO_BIEN, GRUPO_BIEN, CLASE_BIEN, FAMILIA_BIEN, ITEM_BIEN, NOMBRE_ITEM, CODIGO_ITEM FROM CATALOGO_BIEN_SERV WHERE SEC_EJEC = %s AND TIPO_BIEN = %s AND GRUPO_BIEN = %s AND CLASE_BIEN = %s AND FAMILIA_BIEN = %s and ITEM_BIEN = %s", [params["secEjec"], params["tipoBien"], params["grupoBien"], params["claseBien"], params["familiaBien"], params["itemBien"]])
+
+		itemRemote = dictfetchall(cursor)[0]
+		item = CatalogoBienServ()
+		item.secEjec = itemRemote["SEC_EJEC"]
+		item.tipoBien = itemRemote["TIPO_BIEN"]
+		item.grupoBien = itemRemote["GRUPO_BIEN"]
+		item.claseBien = itemRemote["CLASE_BIEN"]
+		item.familiaBien = itemRemote["FAMILIA_BIEN"]
+		item.itemBien = itemRemote["ITEM_BIEN"]
+		item.nombreItem = itemRemote["NOMBRE_ITEM"]
+		item.codigoItem = itemRemote["CODIGO_ITEM"]
+		item.save()
+	else:
+		item = items[0]
+
+	return item
 
 
 def dictfetchall(cursor):

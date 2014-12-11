@@ -60,6 +60,8 @@ class Contrato(models.Model):
 	secContrato = models.CharField(max_length=50, db_column='SEC_CONTRATO', primary_key=True)
 	anoEje = models.IntegerField(null=True, db_column='ANO_EJE')
 	secEjec = models.IntegerField(null=True, db_column='SEC_EJEC')
+	tipoContrato = models.SmallIntegerField(null=True, db_column='TIPO_CONTRATO')
+	nroContrato = models.IntegerField(null=True, db_column='NRO_CONTRATO')
 	tipoBien = models.CharField(max_length=2, db_column='TIPO_BIEN')
 	nroDocumento = models.CharField(max_length=20, null=True, db_column='NRO_DOCUMENTO')
 	proveedor = models.ForeignKey(Proveedor, null=True, db_column='PROVEEDOR')
@@ -96,9 +98,10 @@ class ContratoDet(models.Model):
 
 
 class ContratoSecuencia(models.Model):
-	contrato = models.ForeignKey(Contrato)
+	# contrato = models.ForeignKey(Contrato)
+	contratoDet = models.ForeignKey(ContratoDet)
 	secFase = models.SmallIntegerField(db_column="SEC_FASE")
-	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
+	# anoProceso = models.IntegerField(db_column="ANO_PROCESO")
 	faseContrato = models.CharField(max_length="1", db_column="FASE_CONTRATO")
 	estadoFase = models.CharField(max_length="1", db_column="ESTADO_FASE")
 	flagComprometido = models.CharField(max_length="1", db_column="FLAG_COMPROMETIDO")
@@ -108,14 +111,15 @@ class ContratoSecuencia(models.Model):
 
 
 class ContratoDetPptal(models.Model):
-	contrato = models.ForeignKey(Contrato)
-	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
+	contratoSecuencia = models.ForeignKey(ContratoSecuencia)
+	# anoProceso = models.IntegerField(db_column="ANO_PROCESO")
 	# secFase = models.IntegerField(db_column="SEC_FASE")
-	secFase = models.ForeignKey(ContratoSecuencia)
+	# secFase = models.ForeignKey(ContratoSecuencia)
 	secDetPptal = models.IntegerField(db_column="SEC_DET_PPTAL")
 	fuenteFinanc = models.CharField(max_length="2", db_column="FUENTE_FINANC")
+	secFunc = models.IntegerField(max_length="4", db_column="SEC_FUNC")
 	clasificador = models.CharField(max_length="20", db_column="CLASIFICADOR")
-	valorSoles = models.DecimalField(max_digits=12, decimal_places=2, db_column="VALOR_SOLES")
+	valorMoneda = models.DecimalField(max_digits=16, decimal_places=2, db_column="VALOR_MONEDA")
 	idClasificador = models.CharField(max_length="10", db_column="ID_CLASIFICADOR")
 	
 	class Meta:
@@ -123,7 +127,8 @@ class ContratoDetPptal(models.Model):
 
 
 class ContratoDetDepe(models.Model):
-	contrato = models.ForeignKey(Contrato)
+	# contrato = models.ForeignKey(Contrato)
+	contratoDetPptal = models.ForeignKey(ContratoDetPptal)
 	anoProceso = models.IntegerField(db_column="ANO_PROCESO")
 	secFase = models.ForeignKey(ContratoSecuencia)
 	secDetPptal = models.IntegerField(db_column="SEC_DET_PPTAL")
@@ -135,22 +140,31 @@ class ContratoDetDepe(models.Model):
 		db_table = "SIG_CONTRATO_DET_DEPE"
 
 
+class CatalogoBienServ(models.Model):
+	secEjec = models.IntegerField(db_column='SEC_EJEC')
+	tipoBien = models.CharField(max_length=1, db_column='TIPO_BIEN')
+	grupoBien = models.CharField(max_length=2, db_column='GRUPO_BIEN')
+	claseBien = models.CharField(max_length=2, db_column='CLASE_BIEN')
+	familiaBien = models.CharField(max_length=4, db_column='FAMILIA_BIEN')
+	itemBien = models.CharField(max_length=4, db_column='ITEM_BIEN')
+	nombreItem = models.CharField(max_length=150, db_column='NOMBRE_ITEM')
+	codigoItem = models.CharField(max_length=12, db_column='CODIGO_ITEM')
+	
+	class Meta:
+		db_table = "CATALOGO_BIEN_SERV"
+
+
 
 class ContratoItem(models.Model):
 	contrato = models.ForeignKey(Contrato)
 	nroItem = models.IntegerField(db_column="NRO_ITEM")
-	tipoBien = models.CharField(max_length=2, db_column='TIPO_BIEN')
-	grupoBien = models.CharField(max_length=2, db_column="GRUPO_BIEN")
-	claseBien = models.CharField(max_length=2, db_column="CLASE_BIEN")
-	familiaBien = models.CharField(max_length=2, db_column="FAMILIA_BIEN")
-	itemBien = models.CharField(max_length=4, db_column="ITEM_BIEN")
+	item = models.ForeignKey(CatalogoBienServ)
 	unidadMedida = models.IntegerField(db_column="UNIDAD_MEDIDA")
 	cantidad = models.DecimalField(max_digits=20, decimal_places=6, db_column="CANTIDAD")
-	cantidadAdjudicada = models.DecimalField(max_digits=20, decimal_places=6, db_column="CANTIDAD_ADJUDICADA")
+	cantidadAdjudica = models.DecimalField(max_digits=20, decimal_places=6, db_column="CANTIDAD_ADJUDICA")
 	moneda = models.CharField(max_length=6, db_column="MONEDA")
 	precioMoneda = models.DecimalField(max_digits=16, decimal_places=6, db_column="PRECIO_MONEDA")
 	valorMoneda = models.DecimalField(max_digits=16, decimal_places=2, db_column="VALOR_MONEDA")
-
 	valorSoles = models.DecimalField(max_digits=16, decimal_places=2, db_column="VALOR_SOLES")
 	cantidadAjustada = models.DecimalField(max_digits=20, decimal_places=6, null=True, db_column="CANTIDAD_AJUSTADA")
 	valorMonedaAjustado = models.DecimalField(max_digits=16, decimal_places=2, null=True, db_column="VALOR_MONEDA_AJUSTADO")
