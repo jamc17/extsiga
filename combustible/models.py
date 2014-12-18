@@ -150,6 +150,9 @@ class CatalogoBienServ(models.Model):
 	nombreItem = models.CharField(max_length=150, db_column='NOMBRE_ITEM')
 	codigoItem = models.CharField(max_length=12, db_column='CODIGO_ITEM')
 	
+	def __unicode__(self):
+		return self.codigoItem + " - " + self.nombreItem
+
 	class Meta:
 		db_table = "CATALOGO_BIEN_SERV"
 
@@ -169,8 +172,10 @@ class ContratoItem(models.Model):
 	cantidadAjustada = models.DecimalField(max_digits=20, decimal_places=6, null=True, db_column="CANTIDAD_AJUSTADA")
 	valorMonedaAjustado = models.DecimalField(max_digits=16, decimal_places=2, null=True, db_column="VALOR_MONEDA_AJUSTADO")
 
+
 	class Meta:
 		db_table = "SIG_CONTRATO_ITEM"
+		ordering = ["nroItem"]
 
 
 

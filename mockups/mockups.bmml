@@ -105,6 +105,7 @@
     </control>
     <control controlID="19" controlTypeID="com.balsamiq.mockups::Accordion" x="922" y="104" w="150" h="415" measuredW="172" measuredH="321" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
+        <selectedIndex>1</selectedIndex>
         <text>Combustible%0A-%20Contratos%20Siga%0A-%20Consumo%20Mensual%0A-%20Generar%20Cronograma%0A-%20Estad%EDsticas%20de%20Consumo%0ASeguimiento%0ASIGA-SIAF%0AUtilitarios%0AAdministraci%F3n</text>
       </controlProperties>
     </control>
@@ -205,6 +206,7 @@
     </control>
     <control controlID="44" controlTypeID="com.balsamiq.mockups::Accordion" x="15" y="696" w="150" h="415" measuredW="172" measuredH="321" zOrder="27" locked="false" isInGroup="-1">
       <controlProperties>
+        <selectedIndex>2</selectedIndex>
         <text>Combustible%0A-%20Contratos%20Siga%0A-%20Consumo%20Mensual%0A-%20Generar%20Cronograma%0A-%20Estad%EDsticas%20de%20Consumo%0ASeguimiento%0ASIGA-SIAF%0AUtilitarios%0AAdministraci%F3n</text>
       </controlProperties>
     </control>

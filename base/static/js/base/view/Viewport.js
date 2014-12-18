@@ -1,7 +1,7 @@
 Ext.define("ExtSiga.base.view.Viewport", {
 	extend: "Ext.container.Viewport",
 	layout: "border",
-	uses: ["ExtSiga.combustible.view.ContratosSiga"],
+	uses: ["ExtSiga.combustible.view.ContratosSiga", "ExtSiga.combustible.view.ConsumoMensual"],
 
 
 	initComponent: function () {
@@ -74,9 +74,12 @@ Ext.define("ExtSiga.base.view.Viewport", {
 				// var centerReg = Ext.create("ExtSiga.combustible.view." + itemSel, {
 				// 	centerReg: viewport.getComponent("panelCentral")
 				// });
+				centerReg = viewport.getComponent("panelCentral");
+
+				var els = centerReg.removeAll(true);
 
 				ExtSiga.combustible.view[itemSel].renderizate({
-					centerReg: viewport.getComponent("panelCentral")
+					centerReg: centerReg
 				});
 
 			} catch (Err) {

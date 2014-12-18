@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^getEjecutoras$', views.getEjecutoras, name='getEjecutoras'),
     url(r'^getDetalleEjecutora$', views.getDetalleEjecutora, name='getDetalleEjecutora'),
     url(r'^guardarContratosCombustible$', views.guardarContratosCombustible, name='guardarContratosCombustible'),
+	url(r'^getItemsContrato$', views.getItemsContrato, name='getItemsContrato'),
     
 )

@@ -182,14 +182,17 @@ def filtrosContratosSiga(request):
 def getContratosSiga(request):
 	year = request.GET.get("anoEje")
 	tipoBien = request.GET.get("tipoBien")
+	estado = request.GET.get("estado")
 	
 	if not year:
 		year = datetime.today().year
 
 	if not tipoBien:
 		tipoBien = TipoBien.objects.all().order_by("nombre")[0].sigla
+	if not estado:
+		estado = 0
 
-	contratos = Contrato.objects.filter(estado = 0, anoEje = year, tipoBien = tipoBien).order_by("secContrato")
+	contratos = Contrato.objects.filter(estado = estado, anoEje = year, tipoBien = tipoBien).order_by("secContrato")
 
 	return render(request, "combustible/listContratosSiga.html", locals());
 
@@ -201,6 +204,12 @@ def getDetalleContratoSiga(request):
 		contrato = Contrato.objects.get(pk = secContrato)
 
 	return render(request, "combustible/detalleContrato.html", locals())
+
+
+def getItemsContrato(request):
+	secContrato = request.GET.get("secContrato")
+	contrato = Contrato.objects.get(pk = secContrato)
+	return render(request, "combustible/itemsContrato.html", locals())
 
 
 # from psycopg2.extras import DictCursor
@@ -238,7 +247,7 @@ def guardarContratosCombustible(request):
 
 			guardaItemsContrato(cursorRemote, params)
 			
-			# contratoU.estado = 1
+			contratoU.estado = 1
 			contratoU.save()
 	cursorRemote.close()
 
@@ -306,6 +315,7 @@ def guardaDetPptalContrato(cursor, params):
 			contratoDetPptal.valorMoneda = contratoDetPptalRemote["VALOR_MONEDA"]
 			contratoDetPptal.idClasificador = contratoDetPptalRemote["ID_CLASIFICADOR"]
 			contratoDetPptal.save()
+
 
 def guardaItemsContrato(cursor, params):
 	cursor.execute("SELECT * FROM SIG_CONTRATO_ITEM WHERE SEC_EJEC = %s AND ANO_EJE = %s AND TIPO_CONTRATO = %s AND NRO_CONTRATO = %s", [params["secEjec"], params["anoEje"], params["tipoContrato"], params["nroContrato"]])
